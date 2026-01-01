@@ -1,9 +1,5 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { motion } from "framer-motion"
 import { Head } from "@inertiajs/react"
 import AppLayout from "@/layouts/app-layout"
-import RespondentForm from "./components/RespondentForm"
 import QuestionnaireForm from "./components/QuestionnaireForm"
 import { Question, Respondent, Service, Skm } from "@/types"
 

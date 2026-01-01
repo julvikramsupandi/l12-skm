@@ -18,8 +18,9 @@ class SurveyController extends Controller
 {
     public function index()
     {
-        $title = 'Survei';
-        $skms = Skm::with('unor')->get();
+        $title = 'Organisasi Pemerintah Daerah';
+        $skms = Skm::with('unor')
+            ->get();
 
         return Inertia::render('Survey/SkmPage', [
             'title' => $title,
@@ -31,14 +32,18 @@ class SurveyController extends Controller
     public function services($uuid)
     {
 
-        $skm = Skm::with('unor')->where('uuid', $uuid)->first();
+        $skm = Skm::with('unor')
+            ->where('uuid', $uuid)
+            ->first();
+
         $skmId = $skm->id;
         $unorName = $skm->unor->name;
 
-        $services = Service::where('skm_id', $skmId)->get();
+        $services = Service::where('skm_id', $skmId)
+            ->get();
 
         return Inertia::render('Survey/ServicePage', [
-            'title' => $unorName,
+            'title' => 'Layanan ' . $unorName,
             'uuid' => $uuid,
             'services' => $services,
             'skm' => $skm
@@ -48,7 +53,9 @@ class SurveyController extends Controller
 
     public function form($uuid, $serviceId)
     {
-        $skm = Skm::with('unor')->where('uuid', $uuid)->first();
+        $skm = Skm::with('unor')
+            ->where('uuid', $uuid)
+            ->first();
 
         return Inertia::render('Survey/FormPage', [
             'title' => 'Survei',
@@ -88,16 +95,19 @@ class SurveyController extends Controller
             'disability_type'  => $validated['disability_type'] ?? null,
         ]);
 
-        return redirect()->route('survey.questionnaire', [
-            'uuid' => $uuid,
-            'serviceId' => $serviceId,
-            'respondentUuid' => $respondent->uuid,
-        ]);
+        return redirect()
+            ->route('survey.questionnaire', [
+                'uuid' => $uuid,
+                'serviceId' => $serviceId,
+                'respondentUuid' => $respondent->uuid,
+            ]);
     }
 
     public function questionnaire($uuid, $serviceId, $respondentUuid)
     {
-        $skm = Skm::with('unor')->where('uuid', $uuid)->first();
+        $skm = Skm::with('unor')
+            ->where('uuid', $uuid)
+            ->first();
 
         $respondent = Respondent::where('uuid', $respondentUuid)
             ->where('service_id', $serviceId)
@@ -107,10 +117,11 @@ class SurveyController extends Controller
         $serviceChannel = $service->service_channel;
 
         $questions = Question::with('optionScale.answerOptions')
-            ->where('service_channel', $serviceChannel)->get();
+            ->where('service_channel', $serviceChannel)
+            ->get();
 
         return Inertia::render('Survey/QuestionnairePage', [
-            'title' => 'Survei',
+            'title' => 'Kuesioner',
             'skm' => $skm,
             'service' => $service,
             'respondent' => $respondent,
@@ -122,7 +133,8 @@ class SurveyController extends Controller
     {
         foreach ($request->answers as $answer) {
 
-            $respondent = Respondent::where('uuid', $answer['respondent_uuid'])->first();
+            $respondent = Respondent::where('uuid', $answer['respondent_uuid'])
+                ->first();
             $respondentId = $respondent->id;
 
             $questionId = $answer['question_id'];
@@ -137,6 +149,7 @@ class SurveyController extends Controller
             ]);
         }
 
-        return redirect()->route('survey');
+        return redirect()
+            ->route('survey');
     }
 }
