@@ -22,10 +22,11 @@ interface QuestionnaireFormProps {
     service: Service,
     questions: Question[],
     respondentUuid: string,
-    gender: string,
+    respondentName: string,
+    respondentGender: string,
 }
 
-export default function QuestionnaireForm({ skm, service, questions, respondentUuid, gender }: QuestionnaireFormProps) {
+export default function QuestionnaireForm({ skm, service, questions, respondentUuid, respondentName, respondentGender }: QuestionnaireFormProps) {
     const [step, setStep] = useState(0)
 
     type AnswerValue = {
@@ -71,7 +72,7 @@ export default function QuestionnaireForm({ skm, service, questions, respondentU
                     {skm.unor.name}
                 </CardTitle>
                 <CardDescription>
-                    {service.name} | {service.service_channel}
+                    <span className="text-primary">{respondentName}</span> | {service.name} | {service.service_channel}
                     <div className="space-y-1 mt-2">
                         <Progress value={progress} className="h-1" />
                         <p className="text-xs text-muted-foreground">
@@ -118,7 +119,7 @@ export default function QuestionnaireForm({ skm, service, questions, respondentU
                                 const selected =
                                     answers[currentQuestion.id]?.answer_option_id === option.id
 
-                                const image = '/assets/images/' + gender + '/' + option.score + '.png';
+                                const image = '/assets/images/' + respondentGender + '/' + option.score + '.png';
 
                                 return (
                                     <label

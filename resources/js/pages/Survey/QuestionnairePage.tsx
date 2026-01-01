@@ -21,7 +21,8 @@ export default function QuestionnairePage({ title, skm, service, respondent, que
                     service={service}
                     questions={questions}
                     respondentUuid={respondent.uuid}
-                    gender={respondent.gender == 'L' ? 'male' : 'female'}
+                    respondentName={respondent.respondent_name}
+                    respondentGender={respondent.gender == 'L' ? 'male' : 'female'}
                 />
             </div>
         </AppLayout>
