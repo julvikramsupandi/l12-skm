@@ -50,7 +50,7 @@ export default function FormPage({ title, uuid, serviceId, skm }: FormPageProps)
                             <BreadcrumbSeparator />
                             <BreadcrumbItem>
                                 <BreadcrumbLink asChild>
-                                    <Link className="text-foreground">Formulir</Link>
+                                    <Link className="text-foreground">Survei</Link>
                                 </BreadcrumbLink>
                             </BreadcrumbItem>
                         </BreadcrumbList>

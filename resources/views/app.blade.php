@@ -2,10 +2,15 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description"
+        content="Survei Kepuasan Masyarakat (SKM) adalah kegiatan pengukuran berkala untuk menilai tingkat kepuasan masyarakat terhadap kualitas pelayanan publik berdasarkan perbandingan antara harapan dan kenyataan pelayanan." />
+    <meta name="keywords" content="SKM, Survei Kepuasan Masyarakat, Survei, Kepuasan, Masyarakat" />
+    <meta name="author" content="Julvikram Supandi" />
 
-    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('/assets/images/favicon.png') }}" type="image/x-icon" />
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 

@@ -1,7 +1,7 @@
 <x-layout.admin.app title="Indeks Kepuasan Masyarakat (OPD)">
 
     @push('css')
-        <link rel="stylesheet" href="{{ asset('admin/css/plugins/style.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/admin/css/plugins/style.css') }}" />
     @endpush
 
     <x-layout.admin.pageheader title="Indeks Kepuasan Masyarakat (OPD)" :breadcrumb="[['label' => 'Indeks Kepuasan Masyarakat (OPD)', 'url' => null]]" />

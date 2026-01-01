@@ -10,9 +10,6 @@ use App\Models\Respondent;
 use Illuminate\Http\Request;
 
 use Inertia\Inertia;
-use Inertia\Response;
-
-use function Pest\Laravel\json;
 
 class SurveyController extends Controller
 {

@@ -1,7 +1,7 @@
 <x-layout.admin.app title="Pertanyaan">
 
     @push('css')
-        <link rel="stylesheet" href="{{ asset('admin/css/plugins/style.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/admin/css/plugins/style.css') }}" />
     @endpush
 
     <x-layout.admin.pageheader title="Pertanyaan" :breadcrumb="[['label' => 'Pertanyaan', 'url' => null]]" />

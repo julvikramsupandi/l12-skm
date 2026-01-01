@@ -232,18 +232,18 @@ document.addEventListener('DOMContentLoaded', function () {
   //   var script = document.createElement('script');
   //   if (layout === 'horizontal') {
   //     document.querySelector('.pc-sidebar').classList.add('d-none');
-  //     script.src = base_url+'/admin/js/layout-horizontal.js'; // Load script for horizontal layout
+  //     script.src = base_url+'/assets/admin/js/layout-horizontal.js'; // Load script for horizontal layout
   //     document.body.appendChild(script);
   //   } else if (layout === 'color-header') {
   //     // Change logo color for color-header layout
   //     if (document.querySelector('.pc-sidebar .m-header .logo-lg')) {
-  //       document.querySelector('.pc-sidebar .m-header .logo-lg').setAttribute('src', base_url+'/admin/images/logo-white.svg');
+  //       document.querySelector('.pc-sidebar .m-header .logo-lg').setAttribute('src', base_url+'/assets/admin/images/logo-white.svg');
   //     }
   //   } else if (layout === 'compact') {
-  //     script.src = base_url+'/admin/js/layout-compact.js'; // Load script for compact layout
+  //     script.src = base_url+'/assets/admin/js/layout-compact.js'; // Load script for compact layout
   //     document.body.appendChild(script);
   //   } else if (layout === 'tab') {
-  //     script.src = base_url+'/admin/js/layout-tab.js'; // Load script for tab layout
+  //     script.src = base_url+'/assets/admin/js/layout-tab.js'; // Load script for tab layout
   //     document.body.appendChild(script);
   //   }
   // }
@@ -369,7 +369,7 @@ for (var t = 0; t < tc.length; t++) {
 // Change authentication logo
 var tc = document.querySelectorAll('.auth-main.v2 .img-brand');
 for (var t = 0; t < tc.length; t++) {
-  tc[t].setAttribute('src', base_url+'/admin/images/logo-white.svg');
+  tc[t].setAttribute('src', base_url+'/assets/admin/images/logo-white.svg');
 }
 
 // =======================================================
@@ -571,17 +571,17 @@ function layout_change(layout) {
   if (layout == 'dark') {
     dark_flag = true;
     // if (document.querySelector('.pc-sidebar .m-header .logo-lg')) {
-    //   document.querySelector('.pc-sidebar .m-header .logo-lg').setAttribute('src', base_url+'/admin/images/logo-white.svg');
+    //   document.querySelector('.pc-sidebar .m-header .logo-lg').setAttribute('src', base_url+'/assets/admin/images/logo-white.svg');
     // }
 
     // if (document.querySelector('.navbar-brand .logo-lg')) {
-    //   document.querySelector('.navbar-brand .logo-lg').setAttribute('src', base_url+'/admin/images/logo-white.svg');
+    //   document.querySelector('.navbar-brand .logo-lg').setAttribute('src', base_url+'/assets/admin/images/logo-white.svg');
     // }
     // if (document.querySelector('.auth-main.v1 .auth-sidefooter')) {
-    //   document.querySelector('.auth-main.v1 .auth-sidefooter img').setAttribute('src', base_url+'/admin/images/logo-white.svg');
+    //   document.querySelector('.auth-main.v1 .auth-sidefooter img').setAttribute('src', base_url+'/assets/admin/images/logo-white.svg');
     // }
     if (document.querySelector('.footer-top .footer-logo')) {
-      document.querySelector('.footer-top .footer-logo').setAttribute('src', base_url+'/admin/images/logo-white.svg');
+      document.querySelector('.footer-top .footer-logo').setAttribute('src', base_url+'/assets/admin/images/logo-white.svg');
     }
     var control = document.querySelector('.theme-layout .btn.active');
     if (control) {
@@ -592,16 +592,16 @@ function layout_change(layout) {
     dark_flag = false;
 
     // if (document.querySelector('.pc-sidebar .m-header .logo-lg')) {
-    //   document.querySelector('.pc-sidebar .m-header .logo-lg').setAttribute('src', base_url+'/admin/images/logo-dark.svg');
+    //   document.querySelector('.pc-sidebar .m-header .logo-lg').setAttribute('src', base_url+'/assets/admin/images/logo-dark.svg');
     // }
     // if (document.querySelector('.navbar-brand .logo-lg')) {
-    //   document.querySelector('.navbar-brand .logo-lg').setAttribute('src', base_url+'/admin/images/logo-dark.svg');
+    //   document.querySelector('.navbar-brand .logo-lg').setAttribute('src', base_url+'/assets/admin/images/logo-dark.svg');
     // }
     // if (document.querySelector('.auth-main.v1 .auth-sidefooter')) {
-    //   document.querySelector('.auth-main.v1 .auth-sidefooter img').setAttribute('src',base_url+ '/admin/images/logo-dark.svg');
+    //   document.querySelector('.auth-main.v1 .auth-sidefooter img').setAttribute('src',base_url+ '/assets/admin/images/logo-dark.svg');
     // }
     if (document.querySelector('.footer-top .footer-logo')) {
-      document.querySelector('.footer-top .footer-logo').setAttribute('src',base_url+ '/admin/images/logo-dark.svg');
+      document.querySelector('.footer-top .footer-logo').setAttribute('src',base_url+ '/assets/admin/images/logo-dark.svg');
     }
     var control = document.querySelector('.theme-layout .btn.active');
     if (control) {

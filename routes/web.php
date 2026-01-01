@@ -7,10 +7,8 @@ use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\UnorController;
 use App\Http\Controllers\Admin\SkmController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\SurveyController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -39,7 +37,7 @@ Route::get('/tentang', fn() => Inertia::render('about'))->name('about');
 
 
 Route::prefix('admin')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard.index');
 
     Route::resource('/element', ElementController::class)->names('admin.element');
     Route::resource('/answer-option', AnswerOptionController::class)->names('admin.answer_option');

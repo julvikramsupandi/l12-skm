@@ -24,20 +24,20 @@
     <!-- [Favicon] icon -->
     <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon" />
     <!-- [Font] Family -->
-    <link rel="stylesheet" href="{{ asset('admin/fonts/inter/inter.css') }}" id="main-font-link" />
+    <link rel="stylesheet" href="{{ asset('assets/admin/fonts/inter/inter.css') }}" id="main-font-link" />
     <!-- [phosphor Icons] https://phosphoricons.com/ -->
-    <link rel="stylesheet" href="{{ asset('admin/fonts/phosphor/duotone/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/admin/fonts/phosphor/duotone/style.css') }}" />
     <!-- [Tabler Icons] https://tablericons.com -->
-    {{-- <link rel="stylesheet" href="{{ asset('admin/fonts/tabler-icons.min.css') }}" /> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/admin/fonts/tabler-icons.min.css') }}" /> --}}
     <!-- [Feather Icons] https://feathericons.com -->
-    {{-- <link rel="stylesheet" href="{{ asset('admin/fonts/feather.css') }}" /> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/admin/fonts/feather.css') }}" /> --}}
     <!-- [Font Awesome Icons] https://fontawesome.com/icons -->
-    {{-- <link rel="stylesheet" href="{{ asset('admin/fonts/fontawesome.css') }}" /> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/admin/fonts/fontawesome.css') }}" /> --}}
     <!-- [Material Icons] https://fonts.google.com/icons -->
-    {{-- <link rel="stylesheet" href="{{ asset('admin/fonts/material.css') }}" /> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/admin/fonts/material.css') }}" /> --}}
     <!-- [Template CSS Files] -->
-    <link rel="stylesheet" href="{{ asset('admin/css/style.css') }}" id="main-style-link" />
-    <link rel="stylesheet" href="{{ asset('admin/css/style-preset.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/style.css') }}" id="main-style-link" />
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/style-preset.css') }}" />
 
     @stack('css')
 
@@ -102,12 +102,12 @@
 
 
     <!-- Required Js -->
-    <script src="{{ asset('admin/js/plugins/popper.min.js') }}"></script>
-    <script src="{{ asset('admin/js/plugins/simplebar.min.js') }}"></script>
-    <script src="{{ asset('admin/js/plugins/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('admin/js/fonts/custom-font.js') }}"></script>
-    <script src="{{ asset('admin/js/pcoded.js') }}"></script>
-    <script src="{{ asset('admin/js/plugins/feather.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/plugins/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/plugins/simplebar.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/plugins/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/fonts/custom-font.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/pcoded.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/plugins/feather.min.js') }}"></script>
     {{-- <div class="floting-button">
         <a href="https://1.envato.market/zNkqj6"
             class="btn btn btn-danger buynowlinks d-inline-flex align-items-center gap-2" data-bs-toggle="tooltip"

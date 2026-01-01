@@ -13,6 +13,8 @@ import {
 import { DatePicker } from '@/components/DatePicker'
 import { useState } from 'react'
 import { is } from 'date-fns/locale'
+import { Separator } from '@/components/ui/separator'
+import { CheckCheckIcon, CheckCircle2Icon, CheckCircleIcon } from 'lucide-react'
 
 interface RespondentFormProps {
     uuid: string,
@@ -52,9 +54,10 @@ export default function RespondentForm({ uuid: uuid, serviceId }: RespondentForm
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className='grid md:grid-cols-2 gap-4'>
+                    <div className='grid  md:grid-cols-6 lg:grid-cols-12 gap-5'>
 
-                        <div>
+
+                        <div className='md:col-span-3 lg:col-span-3'>
                             <Label>Tanggal</Label>
                             <div className='mt-1'>
                                 <DatePicker date={date} onDateChange={setDate} />
@@ -69,7 +72,7 @@ export default function RespondentForm({ uuid: uuid, serviceId }: RespondentForm
                         </div>
 
 
-                        <div>
+                        <div className='md:col-span-3 lg:col-span-3'>
                             <Label>Jam</Label>
                             <Select
                                 value={data.survey_time}
@@ -93,7 +96,8 @@ export default function RespondentForm({ uuid: uuid, serviceId }: RespondentForm
                         </div>
 
 
-                        <div>
+
+                        <div className='md:col-span-6 lg:col-span-6'>
                             <Label>Nama</Label>
                             <Input
                                 className='mt-1'
@@ -112,119 +116,116 @@ export default function RespondentForm({ uuid: uuid, serviceId }: RespondentForm
                         </div>
 
 
-                        <div className='grid md:grid-cols-2 gap-4'>
 
-                            <div>
-                                <Label>Usia</Label>
-                                <Input
-                                    className='mt-1'
-                                    placeholder='Usia'
-                                    type="number"
-                                    value={data.age}
-                                    onChange={(e) => setData('age', e.target.value)}
-                                    required
-                                />
-                                {
-                                    errors.age && (
-                                        <p className="mt-1 text-xs text-red-500">
-                                            * {errors.age}
-                                        </p>
-                                    )
-                                }
-                            </div>
-
-                            <div>
-                                <Label>Jenis Kelamin</Label>
-                                <Select
-                                    value={data.gender}
-                                    onValueChange={(value) => setData('gender', value)}
-                                    required
-                                >
-                                    <SelectTrigger className='mt-1'>
-                                        <SelectValue placeholder="- Pilih Jenis Kelamin -" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="P">Perempuan</SelectItem>
-                                        <SelectItem value="L">Laki-laki</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                                {
-                                    errors.gender && (
-                                        <p className="mt-1 text-xs text-red-500">
-                                            * {errors.gender}
-                                        </p>
-                                    )
-                                }
-                            </div>
-                        </div>
-                        <div className='grid md:grid-cols-2 gap-4'>
-                            <div>
-                                <Label>Pendidikan</Label>
-                                <Select
-                                    value={data.education}
-                                    onValueChange={(value) => setData('education', value)}
-                                    required
-                                >
-                                    <SelectTrigger className='mt-1'>
-                                        <SelectValue placeholder="- Pilih Pendidikan -" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="Tidak sekolah">Tidak sekolah</SelectItem>
-                                        <SelectItem value="SD/Sederajat">SD/Sederajat</SelectItem>
-                                        <SelectItem value="SMP/Sederajat">SMP/Sederajat</SelectItem>
-                                        <SelectItem value="SMA/Sederajat">SMA/Sederajat</SelectItem>
-                                        <SelectItem value="D1/D2/D3">D1/D2/D3</SelectItem>
-                                        <SelectItem value="D4/S1">D4/S1</SelectItem>
-                                        <SelectItem value="S2">S2</SelectItem>
-                                        <SelectItem value="S3">S3</SelectItem>
-
-                                    </SelectContent>
-                                </Select>
-                                {
-                                    errors.education && (
-                                        <p className="mt-1 text-xs text-red-500">
-                                            * {errors.education}
-                                        </p>
-                                    )
-                                }
-                            </div>
-
-                            <div>
-                                <Label>Pekerjaan</Label>
-                                <Select
-                                    value={data.occupation}
-                                    onValueChange={(value) => setData('occupation', value)}
-                                    required
-                                >
-                                    <SelectTrigger className='mt-1'>
-                                        <SelectValue placeholder="- Pilih Pekerjaan -" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="ASN">ASN</SelectItem>
-                                        <SelectItem value="TNI">TNI</SelectItem>
-                                        <SelectItem value="POLRI">POLRI</SelectItem>
-                                        <SelectItem value="Swasta">Swasta</SelectItem>
-                                        <SelectItem value="Wirausaha">Wirausaha</SelectItem>
-                                        <SelectItem value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</SelectItem>
-                                        <SelectItem value="Petani/Nelayan">Petani/Nelayan</SelectItem>
-                                        <SelectItem value="Pekerja Lepas/Freelance">Pekerja Lepas/Freelance</SelectItem>
-                                        <SelectItem value="Pensiunan">Pensiunan</SelectItem>
-                                        <SelectItem value="Lainnya">Lainnya</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                                {
-                                    errors.occupation && (
-                                        <p className="mt-1 text-xs text-red-500">
-                                            * {errors.occupation}
-                                        </p>
-                                    )
-                                }
-                            </div>
+                        <div className='md:col-span-3 lg:col-span-1'>
+                            <Label>Usia</Label>
+                            <Input
+                                className='mt-1'
+                                placeholder='Usia'
+                                type="number"
+                                value={data.age}
+                                onChange={(e) => setData('age', e.target.value)}
+                                required
+                            />
+                            {
+                                errors.age && (
+                                    <p className="mt-1 text-xs text-red-500">
+                                        * {errors.age}
+                                    </p>
+                                )
+                            }
                         </div>
 
-                        <div className='grid md:grid-cols-2 gap-4'>
+                        <div className='md:col-span-3 lg:col-span-2'>
+                            <Label>Jenis Kelamin</Label>
+                            <Select
+                                value={data.gender}
+                                onValueChange={(value) => setData('gender', value)}
+                                required
+                            >
+                                <SelectTrigger className='mt-1'>
+                                    <SelectValue placeholder="- Pilih Jenis Kelamin -" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="P">Perempuan</SelectItem>
+                                    <SelectItem value="L">Laki-laki</SelectItem>
+                                </SelectContent>
+                            </Select>
+                            {
+                                errors.gender && (
+                                    <p className="mt-1 text-xs text-red-500">
+                                        * {errors.gender}
+                                    </p>
+                                )
+                            }
+                        </div>
+
+                        <div className='md:col-span-3 lg:col-span-2'>
+                            <Label>Pendidikan</Label>
+                            <Select
+                                value={data.education}
+                                onValueChange={(value) => setData('education', value)}
+                                required
+                            >
+                                <SelectTrigger className='mt-1'>
+                                    <SelectValue placeholder="- Pilih Pendidikan -" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Tidak sekolah">Tidak sekolah</SelectItem>
+                                    <SelectItem value="SD/Sederajat">SD/Sederajat</SelectItem>
+                                    <SelectItem value="SMP/Sederajat">SMP/Sederajat</SelectItem>
+                                    <SelectItem value="SMA/Sederajat">SMA/Sederajat</SelectItem>
+                                    <SelectItem value="D1/D2/D3">D1/D2/D3</SelectItem>
+                                    <SelectItem value="D4/S1">D4/S1</SelectItem>
+                                    <SelectItem value="S2">S2</SelectItem>
+                                    <SelectItem value="S3">S3</SelectItem>
+
+                                </SelectContent>
+                            </Select>
+                            {
+                                errors.education && (
+                                    <p className="mt-1 text-xs text-red-500">
+                                        * {errors.education}
+                                    </p>
+                                )
+                            }
+                        </div>
+
+                        <div className='md:col-span-3 lg:col-span-2'>
+                            <Label>Pekerjaan</Label>
+                            <Select
+                                value={data.occupation}
+                                onValueChange={(value) => setData('occupation', value)}
+                                required
+                            >
+                                <SelectTrigger className='mt-1'>
+                                    <SelectValue placeholder="- Pilih Pekerjaan -" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="ASN">ASN</SelectItem>
+                                    <SelectItem value="TNI">TNI</SelectItem>
+                                    <SelectItem value="POLRI">POLRI</SelectItem>
+                                    <SelectItem value="Swasta">Swasta</SelectItem>
+                                    <SelectItem value="Wirausaha">Wirausaha</SelectItem>
+                                    <SelectItem value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</SelectItem>
+                                    <SelectItem value="Petani/Nelayan">Petani/Nelayan</SelectItem>
+                                    <SelectItem value="Pekerja Lepas/Freelance">Pekerja Lepas/Freelance</SelectItem>
+                                    <SelectItem value="Pensiunan">Pensiunan</SelectItem>
+                                    <SelectItem value="Lainnya">Lainnya</SelectItem>
+                                </SelectContent>
+                            </Select>
+                            {
+                                errors.occupation && (
+                                    <p className="mt-1 text-xs text-red-500">
+                                        * {errors.occupation}
+                                    </p>
+                                )
+                            }
+                        </div>
+
+                        <div className='md:col-span-3 lg:col-span-2'>
                             <div>
-                                <Label>Penyandang disabilitas</Label>
+                                <Label className='text-nowrap'>Penyandang disabilitas</Label>
                                 <Select
                                     value={data.is_disability ? '1' : '0'}
                                     onValueChange={(value) => setData('is_disability', value == '1' ? true : false)}
@@ -246,44 +247,45 @@ export default function RespondentForm({ uuid: uuid, serviceId }: RespondentForm
                                     )
                                 }
                             </div>
+                        </div>
 
 
-                            <div>
-                                <Label>Jika YA, Pilih jenis disabilitas</Label>
-                                <Select
-                                    value={data.disability_type}
-                                    onValueChange={(value) => setData('disability_type', value)}
-                                    required
-                                >
-                                    <SelectTrigger className='mt-1'>
-                                        <SelectValue placeholder="- Pilih -" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="Disabilitas Fisik">Disabilitas Fisik</SelectItem>
-                                        <SelectItem value="Disabilitas Intelektual">Disabilitas Intelektual</SelectItem>
-                                        <SelectItem value="Disabilitas Mental">Disabilitas Mental</SelectItem>
-                                        <SelectItem value="Disabilitas Sensorik">Disabilitas Sensorik</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                                {
-                                    errors.disability_type && (
-                                        <p className="mt-1 text-xs text-red-500">
-                                            * {errors.disability_type}
-                                        </p>
-                                    )
-                                }
-                            </div>
-
+                        <div className='md:col-span-3 lg:col-span-3'>
+                            <Label>Jika YA, Pilih jenis disabilitas</Label>
+                            <Select
+                                value={data.disability_type}
+                                onValueChange={(value) => setData('disability_type', value)}
+                                required
+                            >
+                                <SelectTrigger className='mt-1'>
+                                    <SelectValue placeholder="- Pilih Jenis Disabilitas -" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Disabilitas Fisik">Disabilitas Fisik</SelectItem>
+                                    <SelectItem value="Disabilitas Intelektual">Disabilitas Intelektual</SelectItem>
+                                    <SelectItem value="Disabilitas Mental">Disabilitas Mental</SelectItem>
+                                    <SelectItem value="Disabilitas Sensorik">Disabilitas Sensorik</SelectItem>
+                                </SelectContent>
+                            </Select>
+                            {
+                                errors.disability_type && (
+                                    <p className="mt-1 text-xs text-red-500">
+                                        * {errors.disability_type}
+                                    </p>
+                                )
+                            }
 
                         </div>
                     </div>
+                    <Separator className='mt-5' />
                 </CardContent>
                 <CardFooter>
                     <Button className='w-full' type="submit" disabled={processing}>
+                        <CheckCircleIcon />
                         Mulai Survei
                     </Button>
                 </CardFooter>
             </Card>
-        </form>
+        </form >
     )
 }

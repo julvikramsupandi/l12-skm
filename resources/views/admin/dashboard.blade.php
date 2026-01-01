@@ -20,7 +20,7 @@
                          </div>
                          <div class="col-sm-6 text-center">
                              <div class="img-welcome-banner">
-                                 <img src="{{ asset('admin/images/widget/welcome-banner.png') }}" alt="img"
+                                 <img src="{{ asset('assets/admin/images/widget/welcome-banner.png') }}" alt="img"
                                      class="img-fluid" />
                              </div>
                          </div>
@@ -430,13 +430,13 @@
                      </div>
                      <div class="d-flex align-items-center justify-content-between mt-4">
                          <div class="user-group able-user-group">
-                             <img src="{{ asset('admin/images/user/avatar-1.jpg') }}" alt="user-image"
+                             <img src="{{ asset('assets/admin/images/user/avatar-1.jpg') }}" alt="user-image"
                                  class="avtar" />
-                             <img src="{{ asset('admin/images/user/avatar-3.jpg') }}" alt="user-image"
+                             <img src="{{ asset('assets/admin/images/user/avatar-3.jpg') }}" alt="user-image"
                                  class="avtar" />
-                             <img src="{{ asset('admin/images/user/avatar-4.jpg') }}" alt="user-image"
+                             <img src="{{ asset('assets/admin/images/user/avatar-4.jpg') }}" alt="user-image"
                                  class="avtar" />
-                             <img src="{{ asset('admin/images/user/avatar-5.jpg') }}" alt="user-image"
+                             <img src="{{ asset('assets/admin/images/user/avatar-5.jpg') }}" alt="user-image"
                                  class="avtar" />
                              <span class="avtar bg-light-primary text-primary text-sm">+2</span>
                          </div>
@@ -950,8 +950,8 @@
 
 
      @push('js')
-         <script src="{{ asset('admin/js/plugins/apexcharts.min.js') }}"></script>
-         <script src="{{ asset('admin/js/pages/dashboard-default.js') }}"></script>
+         <script src="{{ asset('assets/admin/js/plugins/apexcharts.min.js') }}"></script>
+         <script src="{{ asset('assets/admin/js/pages/dashboard-default.js') }}"></script>
      @endpush
 
  </x-layout.admin.app>

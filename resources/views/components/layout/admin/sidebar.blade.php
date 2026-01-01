@@ -3,7 +3,7 @@
          <div class="m-header">
              <a href="{{ route('admin.dashboard.index') }}" class="b-brand text-primary">
                  <!-- ========   Change your logo from here   ============ -->
-                 <img src="{{ asset('admin/images/logo.png') }}" class="img-fluid logo-lg" style="height: 36px"
+                 <img src="{{ asset('assets/admin/images/logo.png') }}" class="img-fluid logo-lg" style="height: 36px"
                      alt="logo" />
                  <span class="badge bg-light-success rounded-pill ms-2 theme-version">v2.0.0</span>
              </a>
@@ -13,7 +13,7 @@
                  <div class="card-body">
                      <div class="d-flex align-items-center">
                          <div class="flex-shrink-0">
-                             <img src="{{ asset('admin/images/user/avatar-1.jpg') }}" alt="user-image"
+                             <img src="{{ asset('assets/admin/images/user/avatar-1.jpg') }}" alt="user-image"
                                  class="user-avtar wid-45 rounded-circle" />
                          </div>
                          <div class="flex-grow-1 ms-3 me-2" style="max-width: 120px">

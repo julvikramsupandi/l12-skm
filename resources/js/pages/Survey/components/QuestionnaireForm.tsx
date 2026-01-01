@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Question, Respondent, Service, Skm } from "@/types"
+import { Question, Service, Skm } from "@/types"
 import {
     RadioGroup,
     RadioGroupItem,
 } from "@/components/ui/radio-group"
-import { Label } from "@/components/ui/label"
 import { router } from "@inertiajs/react"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowLeft, ArrowRight, SendHorizonalIcon, SendIcon } from "lucide-react"
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle
+} from "@/components/ui/card"
+import { ArrowLeft, ArrowRight, SendHorizonalIcon } from "lucide-react"
 
 interface QuestionnaireFormProps {
     skm: Skm,
@@ -112,7 +118,7 @@ export default function QuestionnaireForm({ skm, service, questions, respondentU
                                 const selected =
                                     answers[currentQuestion.id]?.answer_option_id === option.id
 
-                                const image = '/images/' + gender + '/' + option.score + '.png';
+                                const image = '/assets/images/' + gender + '/' + option.score + '.png';
 
                                 return (
                                     <label

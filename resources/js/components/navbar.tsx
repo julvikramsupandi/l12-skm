@@ -25,7 +25,7 @@ export default function Navbar() {
                 <a href="/">
 
                     <img
-                        src="/images/logo-invers.png"
+                        src="/assets/images/logo-invers.png"
                         alt="Logo"
                         className="h-10"
                     />
