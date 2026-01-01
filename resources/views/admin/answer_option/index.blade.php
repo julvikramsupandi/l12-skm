@@ -69,7 +69,7 @@
         <script type="module">
             import {
                 DataTable
-            } from '/admin/js/plugins/module.js';
+            } from '/assets/admin/js/plugins/module.js';
             window.dt = new DataTable('#dataTable');
         </script>
     @endpush

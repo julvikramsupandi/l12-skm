@@ -22,7 +22,7 @@
 
 
     <!-- [Favicon] icon -->
-    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('/assets/images/favicon.png') }}" type="image/x-icon" />
     <!-- [Font] Family -->
     <link rel="stylesheet" href="{{ asset('assets/admin/fonts/inter/inter.css') }}" id="main-font-link" />
     <!-- [phosphor Icons] https://phosphoricons.com/ -->

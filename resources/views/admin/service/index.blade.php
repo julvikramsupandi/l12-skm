@@ -37,7 +37,7 @@
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ $item->description }}</td>
+                                        <td class="text-wrap">{{ $item->description }}</td>
                                         <td class="text-center">
                                             @if ($item->service_channel == 'OFFLINE')
                                                 <span class="badge text-bg-secondary">
@@ -92,7 +92,7 @@
         <script type="module">
             import {
                 DataTable
-            } from '/admin/js/plugins/module.js';
+            } from '/assets/admin/js/plugins/module.js';
             window.dt = new DataTable('#dataTable');
         </script>
     @endpush

@@ -45,7 +45,7 @@
                                                     <span class="me-1">Layanan</span>
                                                 </a>
                                                 <a href="javascript:void(0)"
-                                                    onclick="return copyToClipboard('{{ $item->id }}')"
+                                                    onclick="return copyToClipboard('{{ $item->uuid }}')"
                                                     type="button" class="btn btn-outline-info">
                                                     <i class="ph-duotone ph-link mx-1"></i>
                                                     <span class="me-1">Link</span>
@@ -75,10 +75,9 @@
             aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <i class="ph-duotone ph-copy"></i>
-                <strong class="me-auto mx-2">Clipboard</strong>
+                <strong class="me-auto mx-2">Link disalin ke clipboard</strong>
             </div>
-            <div class="toast-body">
-                Link telah disalin ke clipboard.
+            <div class="toast-body" id="toast-body">
             </div>
         </div>
     </div>
@@ -92,23 +91,27 @@
         <script type="module">
             import {
                 DataTable
-            } from '/admin/js/plugins/module.js';
+            } from '/assets/admin/js/plugins/module.js';
             window.dt = new DataTable('#dataTable');
 
 
             window.copyToClipboard = function(text) {
-                const toast = document.getElementById('toastCopy');
+                const toastId = document.getElementById('toastCopy');
 
-                // const route = 'http://localhost:8000/kuesioner/survei/:id';
-                // const textArea = document.createElement("textarea");
+                const route = '{{ route('survey.services', '__uuid__') }}';
+                const textArea = document.createElement("textarea");
 
-                // textArea.value = route.replace(':id', text);
-                // document.body.appendChild(textArea);
-                // textArea.select();
-                // document.execCommand("copy");
-                // document.body.removeChild(textArea);
+                const textValue = route.replace('__uuid__', text);
+                textArea.value = textValue;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textArea);
 
-                const toast = new bootstrap.Toast(toast);
+                const toastBody = document.getElementById('toast-body');
+                toastBody.textContent = textValue;
+
+                const toast = new bootstrap.Toast(toastId);
                 toast.show();
             }
         </script>
