@@ -37,6 +37,7 @@ class SurveyController extends Controller
         $unorName = $skm->unor->name;
 
         $services = Service::where('skm_id', $skmId)
+            ->where('is_active', true)
             ->get();
 
         return Inertia::render('Survey/ServicePage', [

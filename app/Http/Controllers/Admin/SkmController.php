@@ -4,6 +4,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Answer;
+use App\Models\Respondent;
+use App\Models\Service;
 use App\Models\Skm;
 use App\Models\Unor;
 use Illuminate\Http\Request;
@@ -78,9 +81,66 @@ class SkmController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Skm $skm)
+    public function show(Skm $skm, Request $request)
     {
-        //
+        $skm = Skm::with('unor')->find($skm->id);
+        $services = Service::where('skm_id', $skm->id)->get();
+
+        $serviceSelectedName = 'Semua Layanan';
+        $serviceSelected = null;
+        $yearSelected = date('Y');
+        $monthSelected = null;
+        if ($request->isMethod('POST')) {
+            $serviceSelected = $request->service;
+            $yearSelected = $request->year;
+            $monthSelected = $request->month;
+            $serviceSelectedName = Service::find($serviceSelected)->name ?? $serviceSelectedName;
+        }
+
+
+        $respondentTotal = Respondent::countRespondent(
+            $skm->id,
+            $serviceSelected,
+            $yearSelected,
+            $monthSelected
+        );
+
+        $elementScores = Answer::elementScores(
+            $skm->id,
+            $serviceSelected,
+            $yearSelected,
+            $monthSelected
+        );
+
+        $scoreTotal = 0;
+        if ($elementScores->isNotEmpty()) {
+            $scoreTotal = round(
+                collect($elementScores)->avg('element_score'),
+                2
+            );
+        }
+
+        $skmQuality = Skm::skmQuality($scoreTotal);
+        $skmQualityValue = $skmQuality['value'];
+        $skmQualityLabel = $skmQuality['label'];
+
+
+        return view(
+            'admin.skm.detail',
+            compact(
+                'skm',
+                'services',
+                'respondentTotal',
+                'elementScores',
+                'scoreTotal',
+                'skmQualityValue',
+                'skmQualityLabel',
+                'serviceSelectedName',
+                'serviceSelected',
+                'yearSelected',
+                'monthSelected'
+            )
+        );
     }
 
     /**

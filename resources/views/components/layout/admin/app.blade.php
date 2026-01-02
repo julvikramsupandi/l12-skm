@@ -46,8 +46,7 @@
 <!-- [Head] end -->
 <!-- [Body] Start -->
 
-<body data-pc-preset="preset-3" data-pc-sidebar-caption="true" data-pc-layout="vertical" data-pc-direction="ltr"
-    data-pc-theme_contrast="" data-pc-theme="light">
+<body data-pc-preset="preset-3" data-pc-sidebar-caption="true" data-pc-layout="vertical" data-pc-direction="ltr">
     <!-- [ Pre-loader ] start -->
     <div class="loader-bg">
         <div class="loader-track">

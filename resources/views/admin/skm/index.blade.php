@@ -35,7 +35,8 @@
                                         <td>{{ $item->unor->telephone }}</td>
                                         <td class="text-center">
                                             <div class="btn-group btn-group-sm" role="group" aria-label="Action">
-                                                <a href="#" type="button" class="btn btn-outline-primary">
+                                                <a href="{{ route('admin.skm.show', $item->id) }}" type="button"
+                                                    class="btn btn-outline-primary">
                                                     <i class="ph-duotone ph-eye mx-1"></i>
                                                     <span class="me-1">Lihat Detail</span>
                                                 </a>

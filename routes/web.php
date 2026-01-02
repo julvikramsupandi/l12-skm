@@ -45,6 +45,8 @@ Route::prefix('admin')->group(function () {
     Route::resource('/unor', UnorController::class)->names('admin.unor');
 
     Route::resource('/skm', SkmController::class)->names('admin.skm');
+    Route::match(['get', 'post'], '/skm/{skm}', [SkmController::class, 'show'])
+        ->name('admin.skm.show');
     Route::resource('/skm.service', ServiceController::class)->names('admin.service');
 });
 
