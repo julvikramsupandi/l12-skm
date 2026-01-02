@@ -5386,3 +5386,55 @@ $btn-border-radius-lg: 14px; */
   background: rgba(0, 0, 0, 0.1);
   border-color: rgba(255, 255, 255, 0.1);
 }
+
+
+/**  =====================
+      Custom CSS Choices
+==========================  **/
+/* Control */
+.choices__inner {
+    padding: 0.8rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border: 1px solid #bec8d0;
+    border-radius: 8px;
+}
+
+/* Focus */
+.choices.is-focused .choices__inner,
+.choices.is-open .choices__inner {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 1px rgba(var(--bs-primary-rgb), .25);
+}
+
+/* Dropdown */
+.choices__list--dropdown {
+    background-color: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 8px;
+}
+
+.choices__list--dropdown .choices__item {
+    color: var(--bs-body-color);
+}
+
+
+/* Input internal Choices.js */
+.choices__input--cloned {
+    background-color: transparent;
+    color: var(--bs-body-color);
+    caret-color: var(--bs-body-color);
+}
+
+/* Pastikan saat dark mode */
+[data-pc-theme="dark"] .choices__input--cloned {
+    color: #e5e7eb;
+    caret-color: #e5e7eb;
+}
+
+[data-pc-theme="dark"] .choices__inner {
+    background: #263240 !important;
+}

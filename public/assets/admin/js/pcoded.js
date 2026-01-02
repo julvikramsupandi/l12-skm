@@ -184,76 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
    main_layout_change('vertical');
 
-  // layout options (when click customizer layout options according to that set value in local storage)
-  // setLayout();
-  // var if_layout = document.querySelectorAll('.theme-main-layout');
-  // var layoutValue = 'vertical';
-  // if (if_layout) {
-  //   var preset_layout = document.querySelectorAll('.theme-main-layout > a');
-  //   preset_layout.forEach(function (element) {
-  //     element.addEventListener('click', function () {
-  //       // Reload the page after setting the layout for the first time to sync in all open tabs
-  //       location.reload();
-
-  //       document.querySelectorAll('.theme-main-layout > a').forEach(function (el) {
-  //         el.classList.remove('active');
-  //       });
-  //       this.classList.add('active');
-  //       if (this.getAttribute('data-value') == 'horizontal') {
-  //         layoutValue = 'horizontal';
-  //       } else if (this.getAttribute('data-value') == 'compact') {
-  //         layoutValue = 'compact';
-  //       } else if (this.getAttribute('data-value') == 'tab') {
-  //         layoutValue = 'tab';
-  //       } else if (this.getAttribute('data-value') == 'color-header') {
-  //         layoutValue = 'color-header';
-  //       } else {
-  //         layoutValue = 'vertical';
-  //       }
-
-  //       // Set data to localStorage
-  //       localStorage.setItem('layout', layoutValue);
-
-  //       setLayout();
-  //     });
-  //   });
-  // }
 });
-
-// Function to set the layout based on data stored in localStorage
-// function setLayout() {
-  // var layout = localStorage.getItem('layout'); // Retrieve layout data from localStorage
-
-  // Pass the layout value to main_layout_change function
-  // main_layout_change(layout);
-
-  // Load corresponding scripts or perform actions based on the layout value
-  // if (layout !== null && layout !== '') {
-  //   var script = document.createElement('script');
-  //   if (layout === 'horizontal') {
-  //     document.querySelector('.pc-sidebar').classList.add('d-none');
-  //     script.src = base_url+'/assets/admin/js/layout-horizontal.js'; // Load script for horizontal layout
-  //     document.body.appendChild(script);
-  //   } else if (layout === 'color-header') {
-  //     // Change logo color for color-header layout
-  //     if (document.querySelector('.pc-sidebar .m-header .logo-lg')) {
-  //       document.querySelector('.pc-sidebar .m-header .logo-lg').setAttribute('src', base_url+'/assets/admin/images/logo-white.svg');
-  //     }
-  //   } else if (layout === 'compact') {
-  //     script.src = base_url+'/assets/admin/js/layout-compact.js'; // Load script for compact layout
-  //     document.body.appendChild(script);
-  //   } else if (layout === 'tab') {
-  //     script.src = base_url+'/assets/admin/js/layout-tab.js'; // Load script for tab layout
-  //     document.body.appendChild(script);
-  //   }
-  // }
-
-  // If no layout data found in localStorage, set default layout to 'vertical'
-  // if (layout === null) {
-  //   main_layout_change('vertical');
-  //   localStorage.setItem('layout', 'vertical');
-  // }
-// }
 
 // Function to handle menu click and scrollbar initialization
 function add_scroller() {
@@ -308,10 +239,10 @@ window.addEventListener('load', function () {
   });
 
   // Initialize toasts
-  var toastElList = [].slice.call(document.querySelectorAll('.toast'));
-  var toastList = toastElList.map(function (toastEl) {
-    return new bootstrap.Toast(toastEl);
-  });
+  // var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+  // var toastList = toastElList.map(function (toastEl) {
+  //   return new bootstrap.Toast(toastEl);
+  // });
 
   // Remove pre-loader after page load
   var loader = document.querySelector('.loader-bg');
@@ -379,53 +310,12 @@ var rtl_flag = false;
 var dark_flag = false;
 document.addEventListener('DOMContentLoaded', function () {
   if (typeof Storage !== 'undefined') {
-    layout_change(localStorage.getItem('theme'));
+    // layout_change(localStorage.getItem('theme'));
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    layout_change(savedTheme);
   }
 });
 
-// Function to change layout dark/light settings
-function layout_change_default() {
-  // Check if dark mode is preferred and set layout accordingly
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    dark_layout = 'dark';
-  } else {
-    dark_layout = 'light';
-  }
-  layout_change(dark_layout); // Call layout_change function with dark_layout value
-
-  // Set active state for default layout button
-  var btn_control = document.querySelector('.theme-layout .btn[data-value="default"]');
-  if (btn_control) {
-    btn_control.classList.add('active');
-  }
-
-  // Event listener for dark mode preference change
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-    dark_layout = event.matches ? 'dark' : 'light';
-    layout_change(dark_layout); // Call layout_change function with dark_layout value
-  });
-}
-var layout_btn = document.querySelectorAll('.theme-layout .btn');
-for (var t = 0; t < layout_btn.length; t++) {
-  if (layout_btn[t]) {
-    layout_btn[t].addEventListener('click', function (event) {
-      event.stopPropagation();
-      var targetElement = event.target;
-
-      if (targetElement.tagName == 'SPAN') {
-        targetElement = targetElement.parentNode;
-      }
-      if (targetElement.tagName == 'SPAN') {
-        targetElement = targetElement.parentNode;
-      }
-      if (targetElement.getAttribute('data-value') == 'true') {
-        localStorage.setItem('theme', 'light');
-      } else {
-        localStorage.setItem('theme', 'dark');
-      }
-    });
-  }
-}
 // This event listener executes when the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
   // Check if elements with class 'preset-color' exist (switch preset-1 to preset-10 colors and change main colors according to preset-* value)
@@ -463,46 +353,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-// Functions to handle layout theme contrast change
-function layout_theme_contrast_change(value) {
-  // Set attribute based on value and update button state accordingly
-  if (value == 'true') {
-    document.getElementsByTagName('body')[0].setAttribute('data-pc-theme_contrast', 'true');
-    var control = document.querySelector('.theme-contrast .btn.active');
-    if (control) {
-      document.querySelector('.theme-contrast .btn.active').classList.remove('active');
-      document.querySelector(".theme-contrast .btn[data-value='true']").classList.add('active');
-    }
-  } else {
-    document.getElementsByTagName('body')[0].setAttribute('data-pc-theme_contrast', 'false');
-    var control = document.querySelector('.theme-contrast .btn.active');
-    if (control) {
-      document.querySelector('.theme-contrast .btn.active').classList.remove('active');
-      document.querySelector(".theme-contrast .btn[data-value='false']").classList.add('active');
-    }
-  }
-}
-
-// Functions to handle layout caption change (caption hide/show in sidebar)
-function layout_caption_change(value) {
-  // Set attribute based on value and update button state accordingly
-  if (value == 'true') {
-    document.getElementsByTagName('body')[0].setAttribute('data-pc-sidebar-caption', 'true');
-    var control = document.querySelector('.theme-nav-caption .btn.active');
-    if (control) {
-      document.querySelector('.theme-nav-caption .btn.active').classList.remove('active');
-      document.querySelector(".theme-nav-caption .btn[data-value='true']").classList.add('active');
-    }
-  } else {
-    document.getElementsByTagName('body')[0].setAttribute('data-pc-sidebar-caption', 'false');
-    var control = document.querySelector('.theme-nav-caption .btn.active');
-    if (control) {
-      document.querySelector('.theme-nav-caption .btn.active').classList.remove('active');
-      document.querySelector(".theme-nav-caption .btn[data-value='false']").classList.add('active');
-    }
-  }
-}
-
 // Functions to handle layout preset change (active class add/remove from preset-color according to click)
 function preset_change(value) {
   // Set attribute based on value and update active preset color link
@@ -531,38 +381,24 @@ function main_layout_change(value) {
   }
 }
 
-// Function to handle layout direction change (LTR/RTL)
-function layout_rtl_change(value) {
-  // Set attribute based on value and update button state accordingly
-  var control = document.querySelector('#layoutmodertl');
-  if (value == 'true') {
-    rtl_flag = true;
-    document.getElementsByTagName('body')[0].setAttribute('data-pc-direction', 'rtl');
-    document.getElementsByTagName('html')[0].setAttribute('dir', 'rtl');
-    document.getElementsByTagName('html')[0].setAttribute('lang', 'ar');
-    var control = document.querySelector('.theme-direction .btn.active');
-    if (control) {
-      document.querySelector('.theme-direction .btn.active').classList.remove('active');
-      document.querySelector(".theme-direction .btn[data-value='true']").classList.add('active');
-    }
-  } else {
-    rtl_flag = false;
-    document.getElementsByTagName('body')[0].setAttribute('data-pc-direction', 'ltr');
-    document.getElementsByTagName('html')[0].removeAttribute('dir');
-    document.getElementsByTagName('html')[0].removeAttribute('lang');
-    var control = document.querySelector('.theme-direction .btn.active');
-    if (control) {
-      document.querySelector('.theme-direction .btn.active').classList.remove('active');
-      document.querySelector(".theme-direction .btn[data-value='false']").classList.add('active');
-    }
-  }
-}
-
 // Function to handle layout change (dark/light) and update related elements
 function layout_change(layout) {
+
+  // console.log(layout);
+
+  if (!layout) return;
+
+  localStorage.setItem('theme', layout);
+
+  // SET KE HTML & BODY
+  document.documentElement.setAttribute('data-pc-theme', layout);
+  document.body.setAttribute('data-pc-theme', layout);
+
+  dark_flag = layout === 'dark';
+
   // Set layout attribute and update related elements (e.g., logos)
   var control = document.querySelector('.pct-offcanvas');
-  document.getElementsByTagName('body')[0].setAttribute('data-pc-theme', layout);
+  // document.getElementsByTagName('body')[0].setAttribute('data-pc-theme', layout);
 
   var btn_control = document.querySelector('.theme-layout .btn[data-value="default"]');
   if (btn_control) {
@@ -570,16 +406,7 @@ function layout_change(layout) {
   }
   if (layout == 'dark') {
     dark_flag = true;
-    // if (document.querySelector('.pc-sidebar .m-header .logo-lg')) {
-    //   document.querySelector('.pc-sidebar .m-header .logo-lg').setAttribute('src', base_url+'/assets/admin/images/logo-white.svg');
-    // }
-
-    // if (document.querySelector('.navbar-brand .logo-lg')) {
-    //   document.querySelector('.navbar-brand .logo-lg').setAttribute('src', base_url+'/assets/admin/images/logo-white.svg');
-    // }
-    // if (document.querySelector('.auth-main.v1 .auth-sidefooter')) {
-    //   document.querySelector('.auth-main.v1 .auth-sidefooter img').setAttribute('src', base_url+'/assets/admin/images/logo-white.svg');
-    // }
+  
     if (document.querySelector('.footer-top .footer-logo')) {
       document.querySelector('.footer-top .footer-logo').setAttribute('src', base_url+'/assets/admin/images/logo-white.svg');
     }
@@ -591,16 +418,7 @@ function layout_change(layout) {
   } else {
     dark_flag = false;
 
-    // if (document.querySelector('.pc-sidebar .m-header .logo-lg')) {
-    //   document.querySelector('.pc-sidebar .m-header .logo-lg').setAttribute('src', base_url+'/assets/admin/images/logo-dark.svg');
-    // }
-    // if (document.querySelector('.navbar-brand .logo-lg')) {
-    //   document.querySelector('.navbar-brand .logo-lg').setAttribute('src', base_url+'/assets/admin/images/logo-dark.svg');
-    // }
-    // if (document.querySelector('.auth-main.v1 .auth-sidefooter')) {
-    //   document.querySelector('.auth-main.v1 .auth-sidefooter img').setAttribute('src',base_url+ '/assets/admin/images/logo-dark.svg');
-    // }
-    if (document.querySelector('.footer-top .footer-logo')) {
+   if (document.querySelector('.footer-top .footer-logo')) {
       document.querySelector('.footer-top .footer-logo').setAttribute('src',base_url+ '/assets/admin/images/logo-dark.svg');
     }
     var control = document.querySelector('.theme-layout .btn.active');
@@ -611,48 +429,6 @@ function layout_change(layout) {
   }
 }
 
-// Function to toggle box container class based on value (true/false)
-function change_box_container(value) {
-  if (document.querySelector('.pc-content')) {
-    // Add or remove container class from specific elements based on value
-    if (value == 'true') {
-      document.querySelector('.pc-content').classList.add('container');
-      document.querySelector('.footer-wrapper').classList.add('container');
-      document.querySelector('.footer-wrapper').classList.remove('container-fluid');
-
-      var control = document.querySelector('.theme-container .btn.active');
-      if (control) {
-        document.querySelector('.theme-container .btn.active').classList.remove('active');
-        document.querySelector(".theme-container .btn[data-value='true']").classList.add('active');
-      }
-    } else {
-      document.querySelector('.pc-content').classList.remove('container');
-      document.querySelector('.footer-wrapper').classList.remove('container');
-      document.querySelector('.footer-wrapper').classList.add('container-fluid');
-      var control = document.querySelector('.theme-container .btn.active');
-      if (control) {
-        document.querySelector('.theme-container .btn.active').classList.remove('active');
-        document.querySelector(".theme-container .btn[data-value='false']").classList.add('active');
-      }
-    }
-  }
-}
-
-// ----------    new setup end   ------------
-
-// =======================================================
-// =======================================================
-
-// Function to remove CSS classes with a given prefix from a DOM node
-function removeClassByPrefix(node, prefix) {
-  // Iterate over class list and remove classes with the specified prefix
-  for (let i = 0; i < node.classList.length; i++) {
-    let value = node.classList[i];
-    if (value.startsWith(prefix)) {
-      node.classList.remove(value);
-    }
-  }
-}
 
 // Functions for sliding up, sliding down, and toggling visibility of elements
 let slideUp = (target, duration = 0) => {
@@ -701,15 +477,3 @@ let slideDown = (target, duration = 0) => {
     target.style.removeProperty('transition-property');
   }, duration);
 };
-
-var slideToggle = (target, duration = 0) => {
-  // Slide toggle animation implementation
-  if (window.getComputedStyle(target).display === 'none') {
-    return slideDown(target, duration);
-  } else {
-    return slideUp(target, duration);
-  }
-};
-
-// =======================================================
-// =======================================================
