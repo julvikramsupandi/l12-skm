@@ -160,7 +160,7 @@
                         </div>
                     </div>
 
-                    <div class=" mt-3">
+                    <div class="mt-3">
                         <table class="table table-striped table-bordered table-sm">
                             <tr>
                                 <th class="text-center">KODE</th>
@@ -233,6 +233,48 @@
                         <div class="col-lg-4">
                             <div id="occupationDonutChart"></div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-12 d-xl-flex pb-4 mb-xl-0">
+            <div class="card h-100 w-100">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="avtar avtar-s bg-light-warning">
+                                <i class="ph-duotone ph-envelope fs-3"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-0">
+                                Masukan dan saran
+                            </h5>
+                            <p class="text-muted text-sm mb-0">
+                                {{ $serviceSelectedName }} | {{ $yearSelected }} |
+                                {{ $monthSelected ? \Carbon\Carbon::createFromDate(null, $monthSelected, 1)->locale('id')->translatedFormat('F') : 'Semua Bulan' }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th class="text-center">NO</th>
+                                <th>NAMA</th>
+                                <th>LAYANAN</th>
+                                <th class="text-center">MASUKAN DAN SARAN</th>
+                            </tr>
+                            @foreach ($feedbacks as $feedback)
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td>{{ $feedback->respondent->respondent_name }}</td>
+                                    <td>{{ $feedback->respondent->service->name }}</td>
+                                    <td class="text-wrap">{{ $feedback->feedback }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
                     </div>
                 </div>
             </div>

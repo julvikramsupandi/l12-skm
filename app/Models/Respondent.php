@@ -80,4 +80,9 @@ class Respondent extends Model
     {
         return $this->belongsTo(Service::class, 'service_id');
     }
+
+    public function feedback()
+    {
+        return $this->hasMany(Feedback::class, 'respondent_id');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Answer;
+use App\Models\Feedback;
 use App\Models\Respondent;
 use App\Models\Service;
 use App\Models\Skm;
@@ -152,6 +153,8 @@ class SkmController extends Controller
             $monthSelected
         );
 
+        $feedbacks = Feedback::getFeedback($skm->id, $serviceSelected, $yearSelected, $monthSelected);
+
         return view(
             'admin.skm.detail',
             compact(
@@ -168,7 +171,8 @@ class SkmController extends Controller
                 'monthSelected',
                 'respondentGenderTotal',
                 'respondentEducationTotal',
-                'respondentOccupationTotal'
+                'respondentOccupationTotal',
+                'feedbacks'
             )
         );
     }

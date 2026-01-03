@@ -22,14 +22,6 @@ class QuestionController extends Controller
             ->get();
 
         return view('admin.question.index', compact('questions', 'optionScales', 'elements'));
-
-        // $test =   Question::with('optionScale.answerOptions')
-        //     ->where('service_channel', 'ONLINE')
-        //     ->where('is_active', true)
-        //     // ->orderBy('order')
-        //     ->get();
-
-        // dd($test);
     }
 
     /**

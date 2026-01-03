@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\Feedback;
 use App\Models\Question;
 use App\Models\Service;
 use App\Models\Skm;
@@ -144,6 +145,13 @@ class SurveyController extends Controller
                 'respondent_id' => $respondentId,
                 'answer_option_id' => $answerOptionId,
                 'score' => $score
+            ]);
+        }
+
+        if ($request->feedback) {
+            Feedback::create([
+                'respondent_id' => $respondentId,
+                'feedback' => $request->feedback
             ]);
         }
 
