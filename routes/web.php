@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AnswerOptionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ElementController;
+use App\Http\Controllers\Admin\IkmController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\UnorController;
@@ -50,9 +51,9 @@ Route::prefix('admin')->group(function () {
     Route::resource('/unor', UnorController::class)->names('admin.unor');
 
     Route::resource('/skm', SkmController::class)->names('admin.skm');
-    Route::match(['get', 'post'], '/skm/{skm}', [SkmController::class, 'show'])
-        ->name('admin.skm.show');
+    Route::match(['get', 'post'], '/skm/{skm}', [SkmController::class, 'show'])->name('admin.skm.show');
     Route::resource('/skm.service', ServiceController::class)->names('admin.service');
+    Route::match(['get', 'post'], '/ikm', [IkmController::class, 'index'])->name('admin.ikm.index');
 });
 
 require __DIR__ . '/auth.php';

@@ -80,7 +80,7 @@
                      </a>
                  </li>
                  <li class="pc-item">
-                     <a href="{{ route('admin.dashboard.index') }}" class="pc-link">
+                     <a href="{{ route('admin.ikm.index') }}" class="pc-link">
                          <span class="pc-micon">
                              <svg class="pc-icon">
                                  <use xlink:href="#custom-notification-status"></use>
