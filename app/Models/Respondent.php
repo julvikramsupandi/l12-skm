@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,32 +20,60 @@ class Respondent extends Model
         });
     }
 
+    public static function baseQuery(
+        ?int $skmId = null,
+        ?int $serviceId = null,
+        ?int $year = null,
+        ?int $month = null
+    ): Builder {
+        return self::query()
+            ->when(
+                $serviceId,
+                fn($q) =>
+                $q->where('service_id', $serviceId)
+            )
+            ->when(
+                $skmId,
+                fn($q) =>
+                $q->whereHas(
+                    'service.skm',
+                    fn($q) =>
+                    $q->where('id', $skmId)
+                )
+            )
+            ->when(
+                $year,
+                fn($q) =>
+                $q->whereYear('created_at', $year)
+            )
+            ->when(
+                $month,
+                fn($q) =>
+                $q->whereMonth('created_at', $month)
+            );
+    }
+
     public static function countRespondent(
         ?int $skmId = null,
         ?int $serviceId = null,
         ?int $year = null,
         ?int $month = null
     ): int {
-        return self::query()
-            ->when($serviceId, function ($query) use ($serviceId) {
-                $query->where('service_id', $serviceId);
-            })
+        return self::baseQuery($skmId, $serviceId, $year, $month)->count();
+    }
 
-            ->when($skmId, function ($query) use ($skmId) {
-                $query->whereHas('service.skm', function ($query) use ($skmId) {
-                    $query->where('id', $skmId);
-                });
-            })
-
-            ->when($year, function ($query) use ($year) {
-                $query->whereYear('created_at', $year);
-            })
-
-            ->when($month, function ($query) use ($month) {
-                $query->whereMonth('created_at', $month);
-            })
-
-            ->count();
+    public static function countBy(
+        string $column,
+        ?int $skmId = null,
+        ?int $serviceId = null,
+        ?int $year = null,
+        ?int $month = null
+    ): array {
+        return self::baseQuery($skmId, $serviceId, $year, $month)
+            ->select($column, \DB::raw('COUNT(*) as total'))
+            ->groupBy($column)
+            ->pluck('total', $column)
+            ->all();
     }
 
     public function service()

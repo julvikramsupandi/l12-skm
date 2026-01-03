@@ -124,6 +124,29 @@ class SkmController extends Controller
         $skmQualityValue = $skmQuality['value'];
         $skmQualityLabel = $skmQuality['label'];
 
+        $respondentGenderTotal = Respondent::countBy(
+            'gender',
+            $skm->id,
+            $serviceSelected,
+            $yearSelected,
+            $monthSelected
+        );
+
+        $respondentEducationTotal = Respondent::countBy(
+            'education',
+            $skm->id,
+            $serviceSelected,
+            $yearSelected,
+            $monthSelected
+        );
+
+        $respondentOccupationTotal = Respondent::countBy(
+            'occupation',
+            $skm->id,
+            $serviceSelected,
+            $yearSelected,
+            $monthSelected
+        );
 
         return view(
             'admin.skm.detail',
@@ -138,7 +161,10 @@ class SkmController extends Controller
                 'serviceSelectedName',
                 'serviceSelected',
                 'yearSelected',
-                'monthSelected'
+                'monthSelected',
+                'respondentGenderTotal',
+                'respondentEducationTotal',
+                'respondentOccupationTotal'
             )
         );
     }

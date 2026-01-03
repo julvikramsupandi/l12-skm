@@ -25,10 +25,12 @@
                             <p class="text-muted text-sm mb-0">Pilih layanan yang akan ditampilkan</p>
                         </div>
                         <div class="flex-shrink-0">
-                            <button type="button" class="btn btn-icon btn-outline-success" data-bs-toggle="tooltip"
-                                data-bs-placement="top" data-bs-original-title="Tambah Layanan">
-                                <i class="ph-duotone ph-plus"></i>
-                            </button>
+                            <a href="{{ route('admin.service.index', $skm->id) }}">
+                                <button type="button" class="btn btn-icon btn-outline-success" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" data-bs-original-title="Tambah Layanan">
+                                    <i class="ph-duotone ph-plus"></i>
+                                </button>
+                            </a>
                         </div>
                     </div>
                     <div class="bg-body p-3 mt-3 rounded">
@@ -90,14 +92,14 @@
                             <div class="p-4 text-center text-lg-start">
                                 <h4 class="text-white">{{ $serviceSelectedName }}</h4>
                                 <p class="text-white">
-                                    Berdasarkan penilaian dari {{ $respondentTotal }} responden, memperoleh nilai
+                                    Berdasarkan hasil penilaian dari {{ $respondentTotal }} responden, diperoleh nilai
+                                    sebesar
                                     <span class="fw-bold">{{ $scoreTotal }}</span>
-                                    dengan ranking
-                                    (
-                                    <span class="fw-bold">{{ $skmQualityValue }}</span>
-                                    atau
-                                    <span class="fw-bold">{{ $skmQualityLabel }}</span>
-                                    ).
+                                    dengan peringkat
+                                    <span class="fw-bold">
+                                        {{ $skmQualityValue }}
+                                        ({{ $skmQualityLabel }})
+                                    </span>
                                 </p>
                                 <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
                                     <a href="#" class="btn btn-outline-light text-nowrap">
@@ -163,7 +165,7 @@
                                 <th>UNSUR PELAYANAN</th>
                                 <th class="text-center">NILAI UNSUR</th>
                                 <th class="text-center">MUTU</th>
-                                <th>KINERJA</th>
+                                <th class="text-center">KINERJA</th>
                             </tr>
                             @foreach ($elementScores as $element)
                                 <tr>
@@ -171,7 +173,25 @@
                                     <td>{{ $element['element_name'] }}</td>
                                     <td class="text-center">{{ $element['element_score'] }}</td>
                                     <td class="text-center">{{ $element['element_quality_value'] }}</td>
-                                    <td>{{ $element['element_quality_label'] }}</td>
+                                    <td class="text-center">
+                                        @if ($element['element_quality_value'] == 'A')
+                                            <badge class="badge text-bg-primary">
+                                                {{ $element['element_quality_label'] }}
+                                            </badge>
+                                        @elseif($element['element_quality_value'] == 'B')
+                                            <badge class="badge text-bg-success">
+                                                {{ $element['element_quality_label'] }}
+                                            </badge>
+                                        @elseif($element['element_quality_value'] == 'C')
+                                            <badge class="badge text-bg-warning">
+                                                {{ $element['element_quality_label'] }}
+                                            </badge>
+                                        @else
+                                            <badge class="badge text-bg-danger">
+                                                {{ $element['element_quality_label'] }}
+                                            </badge>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>
@@ -181,9 +201,45 @@
         </div>
 
 
+        <div class="col-xl-12 d-xl-flex pb-4 mb-xl-0">
+            <div class="card h-100 w-100">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="avtar avtar-s bg-light-warning">
+                                <i class="ph-duotone ph-chart-donut fs-3"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-0">
+                                Grafik Perbandingan Responden (Jenis Kelamin, Pendidikan, Pekerjaan)
+                            </h5>
+                            <p class="text-muted text-sm mb-0">
+                                {{ $serviceSelectedName }} | {{ $yearSelected }} |
+                                {{ $monthSelected ? \Carbon\Carbon::createFromDate(null, $monthSelected, 1)->locale('id')->translatedFormat('F') : 'Semua Bulan' }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 row justify-between">
+                        <div class="col-lg-4">
+                            <div id="genderDonutChart"></div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div id="educationDonutChart"></div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div id="occupationDonutChart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
-            <div class="toast align-items-center text-bg-success border-0" id="toastCopy" class="toast" role="alert"
-                aria-live="assertive" aria-atomic="true">
+            <div class="toast align-items-center text-bg-success border-0" id="toastCopy" class="toast"
+                role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                     <i class="ph-duotone ph-copy"></i>
                     <strong class="me-auto mx-2">Link disalin ke clipboard</strong>
@@ -214,7 +270,7 @@
 
             const elementScores = @json($elementScores);
 
-            var options = {
+            var elementOptions = {
                 chart: {
                     type: 'bar',
                     height: 420,
@@ -267,15 +323,6 @@
                     }
                 },
 
-                // yaxis: {
-                //     min: 0,
-                //     max: 100,
-                //     tickAmount: 5,
-                //     title: {
-                //         text: 'Nilai Unsur Pelayanan'
-                //     }
-                // },
-
                 plotOptions: {
                     bar: {
                         borderRadius: 6,
@@ -306,15 +353,283 @@
 
             };
 
-            var chart = new ApexCharts(
+            var elementChart = new ApexCharts(
                 document.querySelector("#elementBarChart"),
-                options
+                elementOptions
             );
 
             setTimeout(function() {
+                elementChart.render();
+            }, 1000)
 
-                chart.render();
-            }, 500)
+
+            /// ===========================
+            const genderData = @json(array_values($respondentGenderTotal));
+            const genderLabels = @json(array_keys($respondentGenderTotal));
+
+            var genderDonutOptions = {
+                chart: {
+                    type: 'donut',
+                    height: 320,
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800,
+                        animateGradually: {
+                            enabled: true,
+                            delay: 150
+                        }
+                    }
+                },
+
+                series: genderData,
+
+                labels: genderLabels,
+
+                colors: [
+                    '#673AB7', // Laki-laki (biru)
+                    '#E58A00' // Perempuan (pink)
+                ],
+
+                legend: {
+                    position: 'bottom',
+                    fontSize: '14px'
+                },
+
+                dataLabels: {
+                    enabled: true,
+                    formatter: function(val, opts) {
+                        return opts.w.globals.series[opts.seriesIndex];
+                    }
+                },
+
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return val + ' responden';
+                        }
+                    }
+                },
+
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '65%',
+                            labels: {
+                                show: true,
+                                total: {
+                                    show: true,
+                                    label: 'Total',
+                                    fontSize: '14px',
+                                    formatter: function(w) {
+                                        return w.globals.seriesTotals.reduce((a, b) => a + b, 0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            height: 280
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var genderDonutChart = new ApexCharts(
+                document.querySelector("#genderDonutChart"),
+                genderDonutOptions
+            );
+
+            setTimeout(function() {
+                genderDonutChart.render();
+            }, 1000)
+
+
+            /// ===========================
+            const educationData = @json(array_values($respondentEducationTotal));
+            const educationLabels = @json(array_keys($respondentEducationTotal));
+
+            var educationDonutOptions = {
+                chart: {
+                    type: 'donut',
+                    height: 320,
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800,
+                        animateGradually: {
+                            enabled: true,
+                            delay: 150
+                        }
+                    }
+                },
+
+                series: educationData,
+
+                labels: educationLabels,
+
+                colors: [
+                    '#673AB7',
+                    '#E58A00'
+                ],
+
+                legend: {
+                    position: 'bottom',
+                    fontSize: '14px'
+                },
+
+                dataLabels: {
+                    enabled: true,
+                    formatter: function(val, opts) {
+                        return opts.w.globals.series[opts.seriesIndex];
+                    }
+                },
+
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return val + ' responden';
+                        }
+                    }
+                },
+
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '65%',
+                            labels: {
+                                show: true,
+                                total: {
+                                    show: true,
+                                    label: 'Total',
+                                    fontSize: '14px',
+                                    formatter: function(w) {
+                                        return w.globals.seriesTotals.reduce((a, b) => a + b, 0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            height: 280
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var educationDonutChart = new ApexCharts(
+                document.querySelector("#educationDonutChart"),
+                educationDonutOptions
+            );
+
+            setTimeout(function() {
+                educationDonutChart.render();
+            }, 1000)
+
+            /// ===========================
+            const occupationData = @json(array_values($respondentOccupationTotal));
+            const occupationLabels = @json(array_keys($respondentOccupationTotal));
+
+            var occupationDonutOptions = {
+                chart: {
+                    type: 'donut',
+                    height: 320,
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800,
+                        animateGradually: {
+                            enabled: true,
+                            delay: 150
+                        }
+                    }
+                },
+
+                series: occupationData,
+
+                labels: occupationLabels,
+
+                colors: [
+                    '#673AB7',
+                    '#E58A00'
+                ],
+
+                legend: {
+                    position: 'bottom',
+                    fontSize: '14px'
+                },
+
+                dataLabels: {
+                    enabled: true,
+                    formatter: function(val, opts) {
+                        return opts.w.globals.series[opts.seriesIndex];
+                    }
+                },
+
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return val + ' responden';
+                        }
+                    }
+                },
+
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '65%',
+                            labels: {
+                                show: true,
+                                total: {
+                                    show: true,
+                                    label: 'Total',
+                                    fontSize: '14px',
+                                    formatter: function(w) {
+                                        return w.globals.seriesTotals.reduce((a, b) => a + b, 0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            height: 280
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var occupationDonutChart = new ApexCharts(
+                document.querySelector("#occupationDonutChart"),
+                occupationDonutOptions
+            );
+
+            setTimeout(function() {
+                occupationDonutChart.render();
+            }, 1000)
         </script>
     @endpush
 
