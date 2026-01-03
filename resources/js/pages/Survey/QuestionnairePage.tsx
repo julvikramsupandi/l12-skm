@@ -15,7 +15,7 @@ export default function QuestionnairePage({ title, skm, service, respondent, que
     return (
         <AppLayout>
             <Head title={title} />
-            <div className="h-[calc(100vh-240px)] flex flex-col justify-center ">
+            <div className="h-[calc(100vh-240px)] flex flex-col justify-center">
                 <QuestionnaireForm
                     skm={skm}
                     service={service}

@@ -24,7 +24,7 @@ export default function AppLayout({ children }: Props) {
 
             {/* Footer */}
             <footer className="border-t py-6 text-center text-gray-500 text-sm" >
-                © {new Date().getFullYear()} Survei Kepuasan Masyarakat. Semua hak cipta dilindungi.
+                © {new Date().getFullYear()} SKM. Semua hak cipta dilindungi.
             </footer>
 
         </div>

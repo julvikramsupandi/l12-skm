@@ -49,7 +49,7 @@ export default function ServicePage({ title, uuid, services, skm }: ServicePageP
                     <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem>
-                                <BreadcrumbLink >
+                                <BreadcrumbLink asChild>
                                     <Link>Beranda</Link>
                                 </BreadcrumbLink>
                             </BreadcrumbItem>

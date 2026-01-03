@@ -25,6 +25,11 @@ Route::post('/survey/submit', [SurveyController::class, 'submit'])->name('survey
 
 Route::get('/tentang', fn() => Inertia::render('about'))->name('about');
 
+
+// Routing lama
+Route::get('/kuesioner/survei/{uuid}', [SurveyController::class, 'servicesv1'])->name('survey.servicesv1');
+Route::get('/kuesioner/survei/{uuid}/{serviceId}', [SurveyController::class, 'formv1'])->name('survey.formv1');
+
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');

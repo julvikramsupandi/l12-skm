@@ -15,10 +15,11 @@ interface FormPageProps {
     title: string,
     uuid: string,
     serviceId: number,
+    serviceName: string,
     skm: Skm
 }
 
-export default function FormPage({ title, uuid, serviceId, skm }: FormPageProps) {
+export default function FormPage({ title, uuid, serviceId, serviceName, skm }: FormPageProps) {
 
     return (
         <AppLayout>
@@ -35,7 +36,7 @@ export default function FormPage({ title, uuid, serviceId, skm }: FormPageProps)
                     <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem>
-                                <BreadcrumbLink >
+                                <BreadcrumbLink asChild>
                                     <Link>Beranda</Link>
                                 </BreadcrumbLink>
                             </BreadcrumbItem>
@@ -61,6 +62,7 @@ export default function FormPage({ title, uuid, serviceId, skm }: FormPageProps)
             <RespondentForm
                 uuid={uuid}
                 serviceId={serviceId}
+                serviceName={serviceName}
             />
 
         </AppLayout>

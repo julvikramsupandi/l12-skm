@@ -18,10 +18,11 @@ import { CheckCheckIcon, CheckCircle2Icon, CheckCircleIcon } from 'lucide-react'
 
 interface RespondentFormProps {
     uuid: string,
-    serviceId: number
+    serviceId: number,
+    serviceName: string
 }
 
-export default function RespondentForm({ uuid: uuid, serviceId }: RespondentFormProps) {
+export default function RespondentForm({ uuid, serviceId, serviceName }: RespondentFormProps) {
     const { data, setData, post, processing, errors } = useForm({
         survey_date: new Date().toISOString().split('T')[0],
         survey_time: '08.00 - 12.00',
@@ -48,7 +49,7 @@ export default function RespondentForm({ uuid: uuid, serviceId }: RespondentForm
         <form onSubmit={submit} className="space-y-6">
             <Card className='backdrop-blur bg-card/75 dark:border-slate-800 border-primary/25 '>
                 <CardHeader>
-                    <CardTitle>Formulir</CardTitle>
+                    <CardTitle>{serviceName}</CardTitle>
                     <CardDescription>
                         Silakan lengkapi formulir responden
                     </CardDescription>

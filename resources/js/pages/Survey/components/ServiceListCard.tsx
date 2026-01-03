@@ -38,7 +38,7 @@ export default function ServiceListCard({ uuid, services }: Props) {
                                     ? 'bg-green-500'
                                     : item.service_channel == 'OFFLINE'
                                         ? 'bg-slate-500'
-                                        : 'text-bg-primary'
+                                        : 'bg-primary'
                             }>
                                 {item.service_channel}
                             </Badge>

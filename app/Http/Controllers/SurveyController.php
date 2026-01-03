@@ -34,6 +34,8 @@ class SurveyController extends Controller
             ->where('uuid', $uuid)
             ->first();
 
+        if (!$skm) return abort(404);
+
         $skmId = $skm->id;
         $unorName = $skm->unor->name;
 
@@ -56,10 +58,14 @@ class SurveyController extends Controller
             ->where('uuid', $uuid)
             ->first();
 
+        $service = Service::find($serviceId);
+        $serviceName = $service->name;
+
         return Inertia::render('Survey/FormPage', [
             'title' => 'Survei',
             'uuid' => $uuid,
             'serviceId' => $serviceId,
+            'serviceName' => $serviceName,
             'skm' => $skm
         ]);
     }
@@ -157,5 +163,18 @@ class SurveyController extends Controller
 
         return redirect()
             ->route('survey');
+    }
+
+
+    public function servicesv1($uuid)
+    {
+        return redirect()
+            ->route('survey.services',  $uuid);
+    }
+
+    public function formv1($uuid, $serviceId)
+    {
+        return redirect()
+            ->route('survey.form',  [$uuid, $serviceId]);
     }
 }

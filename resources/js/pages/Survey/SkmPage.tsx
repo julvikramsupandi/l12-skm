@@ -48,7 +48,7 @@ export default function SkmPage({ title, skms }: SkmPageProps) {
                     <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem>
-                                <BreadcrumbLink >
+                                <BreadcrumbLink asChild>
                                     <Link>Beranda</Link>
                                 </BreadcrumbLink>
                             </BreadcrumbItem>
