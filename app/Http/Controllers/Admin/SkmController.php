@@ -41,6 +41,10 @@ class SkmController extends Controller
     {
 
         try {
+            $request->validate([
+                'unor_id' => 'required',
+            ]);
+
             // cek jika id unor yang direquest ternyata sudah ada di database skm
             $cek = Skm::where('unor_id', $request->unor_id)->first();
 

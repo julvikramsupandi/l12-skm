@@ -2,7 +2,6 @@
 
     @push('css')
         <link rel="stylesheet" href="{{ asset('assets/admin/css/plugins/style.css') }}" />
-        {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"> --}}
     @endpush
 
     <x-layout.admin.pageheader title="{{ $skm->unor->name }}" :breadcrumb="[
