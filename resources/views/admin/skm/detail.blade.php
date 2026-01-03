@@ -102,8 +102,11 @@
                                     </span>
                                 </p>
                                 <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
-                                    <a href="#" class="btn btn-outline-light text-nowrap">
-                                        <i class="ph-duotone ph-copy"></i> Link Kuesioner
+
+                                    <a href="javascript:void(0)"
+                                        onclick="return copyToClipboard('{{ $skm->uuid }}')"
+                                        class="btn btn-outline-light text-nowrap">
+                                        <i class="ph-duotone ph-copy"></i> Tautan Kuesioner
                                     </a>
                                     <a href="#" class="btn btn-outline-light text-nowrap">
                                         <i class="ph-duotone ph-brackets-curly"></i> Sematkan
@@ -242,7 +245,7 @@
                 role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                     <i class="ph-duotone ph-copy"></i>
-                    <strong class="me-auto mx-2">Link disalin ke clipboard</strong>
+                    <strong class="me-auto mx-2">Tautan disalin ke clipboard</strong>
                 </div>
                 <div class="toast-body" id="toast-body">
                 </div>
