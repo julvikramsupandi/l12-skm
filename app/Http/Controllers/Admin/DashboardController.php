@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $year = date('Y');
 
         $skmTotal = Skm::count();
-        $serviceTotal = Service::count();
+        $serviceTotal = Service::where('is_active', true)->count();
         $respondentTotal = Respondent::count();
 
         $elementScores = Answer::elementScores();

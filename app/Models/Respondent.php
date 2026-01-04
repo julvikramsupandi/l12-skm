@@ -7,18 +7,47 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Respondent extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
+    protected $appends = ['initials'];
 
     protected static function booted()
     {
         static::creating(function ($model) {
             $model->uuid = (string) \Str::uuid();
         });
+    }
+
+    public function getInitialsAttribute(): string
+    {
+        if (!$this->respondent_name) {
+            return '';
+        }
+
+        return collect(preg_split('/\s+/', trim($this->respondent_name)))
+            ->map(fn($word) => mb_strtoupper(mb_substr($word, 0, 1)))
+            ->implode('');
+    }
+
+    protected function maskedName(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => collect(preg_split('/\s+/', trim($this->respondent_name)))
+                ->map(function ($word) {
+                    $length = mb_strlen($word);
+                    if ($length <= 2) return $word;
+
+                    return mb_substr($word, 0, 1)
+                        . str_repeat('*', $length - 2)
+                        . mb_substr($word, -1);
+                })
+                ->implode(' ')
+        );
     }
 
     public static function baseQuery(

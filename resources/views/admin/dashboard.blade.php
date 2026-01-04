@@ -113,7 +113,7 @@
          <div class="col-lg-4 d-xl-flex">
              <div class="card h-80 w-100">
                  <div class="card-header">
-                     <h5 class="mb-0">Responden</h5>
+                     <h5 class="mb-0">Aktivitas Responden Terbaru</h5>
                  </div>
                  <div class="card-body p-0">
                      <ul class="list-group list-group-flush">
@@ -123,13 +123,13 @@
                                  <div class="d-flex align-items-center">
                                      <div class="flex-shrink-0">
                                          <div class="avtar avtar-s border">
-                                             {{ collect(explode(' ', $item->respondent_name))->map(fn($w) => strtoupper(substr($w, 0, 1)))->implode('') }}
+                                             {{ $item->initials }}
                                          </div>
                                      </div>
                                      <div class="flex-grow-1 ms-3">
                                          <div class="row g-1">
                                              <div class="col-8">
-                                                 <h6 class="mb-0">{{ $item->respondent_name }}</h6>
+                                                 <h6 class="mb-0">{{ $item->masked_name }}</h6>
                                                  <p class="text-muted mb-0 text-truncate">
                                                      <small>
                                                          {{ $item->service->name }}
