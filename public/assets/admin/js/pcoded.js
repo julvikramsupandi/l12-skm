@@ -405,6 +405,9 @@ function layout_change(layout) {
     btn_control.classList.remove('active');
   }
   if (layout == 'dark') {
+    document.querySelector('.button-dark').hidden = true;
+    document.querySelector('.button-light').hidden = false;
+
     dark_flag = true;
   
     if (document.querySelector('.footer-top .footer-logo')) {
@@ -416,6 +419,9 @@ function layout_change(layout) {
       document.querySelector(".theme-layout .btn[data-value='false']").classList.add('active');
     }
   } else {
+
+       document.querySelector('.button-dark').hidden = false;
+    document.querySelector('.button-light').hidden = true;
     dark_flag = false;
 
    if (document.querySelector('.footer-top .footer-logo')) {
