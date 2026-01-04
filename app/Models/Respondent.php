@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 
 class Respondent extends Model
 {
@@ -74,6 +75,18 @@ class Respondent extends Model
             ->groupBy($column)
             ->pluck('total', $column)
             ->all();
+    }
+
+
+    public static function getRespondent(int $year)
+    {
+        return Self::select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('COUNT(*) as total')
+        )
+            ->whereYear('created_at', $year)
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->pluck('total', 'month');
     }
 
     public function service()
