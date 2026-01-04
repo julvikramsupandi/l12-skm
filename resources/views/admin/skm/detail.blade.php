@@ -102,12 +102,13 @@
                                 </p>
                                 <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
 
-                                    <a href="javascript:void(0)"
-                                        onclick="return copyToClipboard('{{ $skm->uuid }}')"
-                                        class="btn btn-outline-light text-nowrap">
+                                    <a href="javascript:void(0)" class="btn btn-outline-light text-nowrap"
+                                        data-bs-toggle="modal" data-bs-target="#qrcodeModal">
                                         <i class="ph-duotone ph-copy"></i> Tautan Kuesioner
                                     </a>
-                                    <a href="#" class="btn btn-outline-light text-nowrap">
+                                    <a href="javascript:void(0)"
+                                        onclick="return alert('Fitur ini masih dalam proses pengembangan. Terima Kasih.')"
+                                        class="btn btn-outline-light text-nowrap">
                                         <i class="ph-duotone ph-brackets-curly"></i> Sematkan
                                     </a>
                                 </div>
@@ -161,42 +162,44 @@
                     </div>
 
                     <div class="mt-3">
-                        <table class="table table-striped table-bordered table-sm">
-                            <tr>
-                                <th class="text-center">KODE</th>
-                                <th>UNSUR PELAYANAN</th>
-                                <th class="text-center">NILAI UNSUR</th>
-                                <th class="text-center">MUTU</th>
-                                <th class="text-center">KINERJA</th>
-                            </tr>
-                            @foreach ($elementScores as $element)
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-sm">
                                 <tr>
-                                    <td class="text-center">{{ $element['element_code'] }}</td>
-                                    <td>{{ $element['element_name'] }}</td>
-                                    <td class="text-center">{{ $element['element_score'] }}</td>
-                                    <td class="text-center">{{ $element['element_quality_value'] }}</td>
-                                    <td class="text-center">
-                                        @if ($element['element_quality_value'] == 'A')
-                                            <badge class="badge text-bg-primary">
-                                                {{ $element['element_quality_label'] }}
-                                            </badge>
-                                        @elseif($element['element_quality_value'] == 'B')
-                                            <badge class="badge text-bg-success">
-                                                {{ $element['element_quality_label'] }}
-                                            </badge>
-                                        @elseif($element['element_quality_value'] == 'C')
-                                            <badge class="badge text-bg-warning">
-                                                {{ $element['element_quality_label'] }}
-                                            </badge>
-                                        @else
-                                            <badge class="badge text-bg-danger">
-                                                {{ $element['element_quality_label'] }}
-                                            </badge>
-                                        @endif
-                                    </td>
+                                    <th class="text-center">KODE</th>
+                                    <th>UNSUR PELAYANAN</th>
+                                    <th class="text-center">NILAI UNSUR</th>
+                                    <th class="text-center">MUTU</th>
+                                    <th class="text-center">KINERJA</th>
                                 </tr>
-                            @endforeach
-                        </table>
+                                @foreach ($elementScores as $element)
+                                    <tr>
+                                        <td class="text-center">{{ $element['element_code'] }}</td>
+                                        <td>{{ $element['element_name'] }}</td>
+                                        <td class="text-center">{{ $element['element_score'] }}</td>
+                                        <td class="text-center">{{ $element['element_quality_value'] }}</td>
+                                        <td class="text-center">
+                                            @if ($element['element_quality_value'] == 'A')
+                                                <badge class="badge text-bg-primary">
+                                                    {{ $element['element_quality_label'] }}
+                                                </badge>
+                                            @elseif($element['element_quality_value'] == 'B')
+                                                <badge class="badge text-bg-success">
+                                                    {{ $element['element_quality_label'] }}
+                                                </badge>
+                                            @elseif($element['element_quality_value'] == 'C')
+                                                <badge class="badge text-bg-warning">
+                                                    {{ $element['element_quality_label'] }}
+                                                </badge>
+                                            @else
+                                                <badge class="badge text-bg-danger">
+                                                    {{ $element['element_quality_label'] }}
+                                                </badge>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -280,20 +283,9 @@
             </div>
         </div>
 
-
-        <div class="toast-container position-fixed bottom-0 end-0 p-3">
-            <div class="toast align-items-center text-bg-success border-0" id="toastCopy" class="toast"
-                role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <i class="ph-duotone ph-copy"></i>
-                    <strong class="me-auto mx-2">Tautan disalin ke clipboard</strong>
-                </div>
-                <div class="toast-body" id="toast-body">
-                </div>
-            </div>
-        </div>
     </div>
 
+    @include('admin.skm.qrcode')
 
     @push('js')
         <script src="{{ asset('assets/admin/js/plugins/choices.min.js') }}"></script>

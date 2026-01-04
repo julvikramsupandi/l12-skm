@@ -951,7 +951,7 @@
 
      @push('js')
          <script src="{{ asset('assets/admin/js/plugins/apexcharts.min.js') }}"></script>
-         <script src="{{ asset('assets/admin/js/pages/dashboard-default.js') }}"></script>
+         {{-- <script src="{{ asset('assets/admin/js/pages/dashboard-default.js') }}"></script> --}}
      @endpush
 
  </x-layout.admin.app>

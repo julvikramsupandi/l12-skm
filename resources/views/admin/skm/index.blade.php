@@ -66,7 +66,7 @@
                                                     <span class="me-1">Layanan</span>
                                                 </a>
                                                 <a href="javascript:void(0)"
-                                                    onclick="return copyToClipboard('{{ $item->uuid }}')"
+                                                    onclick="copyToClipboard('{{ route('survey.services', $item->uuid) }}')"
                                                     type="button" class="btn btn-outline-info">
                                                     <i class="ph-duotone ph-link mx-1"></i>
                                                     <span class="me-1">Tautan</span>
@@ -132,22 +132,18 @@
 
             window.copyToClipboard = function(text) {
                 const toastId = document.getElementById('toastCopy');
-
-                const route = '{{ route('survey.services', '__uuid__') }}';
-                const textArea = document.createElement("textarea");
-
-                const textValue = route.replace('__uuid__', text);
-                textArea.value = textValue;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand("copy");
-                document.body.removeChild(textArea);
-
                 const toastBody = document.getElementById('toast-body');
-                toastBody.textContent = textValue;
 
-                const toast = new bootstrap.Toast(toastId);
-                toast.show();
+                navigator.clipboard.writeText(text)
+                    .then(() => {
+                        toastBody.textContent = text;
+
+                        const toast = new bootstrap.Toast(toastId);
+                        toast.show();
+                    })
+                    .catch(err => {
+                        console.error('Gagal menyalin teks: ', err);
+                    });
             }
         </script>
     @endpush
