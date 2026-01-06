@@ -16,6 +16,16 @@ use Illuminate\Support\Str;
 
 class SkmController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:skm.view')->only(['index']);
+        $this->middleware('permission:skm.show')->only(['show']);
+        $this->middleware('permission:skm.create')->only(['create', 'store']);
+        $this->middleware('permission:skm.edit')->only(['edit', 'update']);
+        $this->middleware('permission:skm.delete')->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      */

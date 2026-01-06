@@ -21,9 +21,9 @@
                          </i>
                      </a>
                  </li>
-                 <li class="pc-h-item d-none d-md-inline-flex">
+                 {{-- <li class="pc-h-item d-none d-md-inline-flex">
                      Dinas Komunikasi, Informatika dan Statistik
-                 </li>
+                 </li> --}}
              </ul>
          </div>
          <!-- [Mobile Media Block end] -->
@@ -46,7 +46,8 @@
                      |
                  </li>
                  <li class="pc-h-item">
-                     <a class="arrow-none mx-2 text-muted" href="<?= route('beranda') ?>" role="button">
+                     <a class="arrow-none mx-2 text-muted" href="<?= route('beranda') ?>" role="button"
+                         target="_blank">
                          <svg class="pc-icon">
                              <use xlink:href="#custom-airplane"></use>
                          </svg>
@@ -69,18 +70,18 @@
                                  style="max-height: calc(100vh - 225px)">
                                  <div class="d-flex mb-1">
                                      <div class="flex-shrink-0">
-                                         <img src="{{ asset('assets/admin/images/user/avatar-2.jpg') }}"
-                                             alt="user-image" class="user-avtar wid-35" />
+                                         <img src="{{ auth()->user()->avatar ? auth()->user()->avatar : asset('assets/admin/images/user/avatar-1.jpg') }}"
+                                             alt="user-image" class="user-avtar wid-35" style="height: 35px;" />
                                      </div>
                                      <div class="flex-grow-1 ms-3">
-                                         <h6 class="mb-1">Carson Darrin 🖖</h6>
-                                         <span>carson.darrin@company.io</span>
+                                         <h6 class="mb-1">{{ auth()->user()->name }} 🖖</h6>
+                                         <span>{{ auth()->user()->email }}</span>
                                      </div>
                                  </div>
 
-                                 <hr class="border-secondary border-opacity-50" />
+                                 {{-- <hr class="border-secondary border-opacity-50" /> --}}
 
-                                 <a href="#" class="dropdown-item">
+                                 {{-- <a href="#" class="dropdown-item">
                                      <span>
                                          <svg class="pc-icon text-muted me-2">
                                              <use xlink:href="#custom-setting-outline"></use>
@@ -103,15 +104,18 @@
                                          </svg>
                                          <span>Change Password</span>
                                      </span>
-                                 </a>
+                                 </a> --}}
 
                                  <hr class="border-secondary border-opacity-50" />
                                  <div class="d-grid mb-3">
-                                     <button class="btn btn-primary">
-                                         <svg class="pc-icon me-2">
-                                             <use xlink:href="#custom-logout-1-outline"></use>
-                                         </svg>Logout
-                                     </button>
+                                     <form method="POST" action="{{ route('logout') }}">
+                                         @csrf
+                                         <button class="btn btn-primary w-100">
+                                             <svg class="pc-icon me-2">
+                                                 <use xlink:href="#custom-logout-1-outline"></use>
+                                             </svg>Logout
+                                         </button>
+                                     </form>
                                  </div>
 
                              </div>

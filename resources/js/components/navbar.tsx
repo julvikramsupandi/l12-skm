@@ -19,7 +19,7 @@ export default function Navbar() {
     ];
 
     return (
-        <header className="bg-violet-700/75 dark:bg-black/50 border-b backdrop-blur-md sticky top-0 z-50">
+        <header className="bg-violet-700/75 border-b backdrop-blur-md sticky top-0 z-50">
             <div className="container mx-auto flex items-center justify-between px-6 py-3">
 
                 <a href="/">
@@ -52,9 +52,9 @@ export default function Navbar() {
                             <Separator orientation="vertical" />
                         </NavigationMenuList>
                         <NavigationMenuList asChild>
-                            <Link href="/masuk" className="text-primary-foreground hover:text-primary-foreground/75">
+                            <a href={route('login')} className="text-primary-foreground hover:text-primary-foreground/75">
                                 Masuk
-                            </Link>
+                            </a>
                         </NavigationMenuList>
                         <NavigationMenuList className="h-4 pl-6 pr-3">
                             <Separator orientation="vertical" />

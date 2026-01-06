@@ -7,15 +7,20 @@ use App\Http\Controllers\Controller;
 use App\Models\Answer;
 use App\Models\Feedback;
 use App\Models\Respondent;
-use App\Models\Service;
 use App\Models\Skm;
-use App\Models\Unor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 
 class IkmController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('permission:ikm.view')->only(['index', 'show']);
+    }
+
+
     /**
      * Display a listing of the resource.
      */

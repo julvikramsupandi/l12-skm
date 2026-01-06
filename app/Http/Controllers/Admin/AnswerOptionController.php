@@ -9,6 +9,15 @@ use Illuminate\Http\Request;
 
 class AnswerOptionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:answer.view')->only(['index', 'show']);
+        $this->middleware('permission:answer.create')->only(['create', 'store']);
+        $this->middleware('permission:answer.edit')->only(['edit', 'update']);
+        $this->middleware('permission:answer.delete')->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      */

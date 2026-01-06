@@ -29,7 +29,7 @@ export default function SkmListCard({ skms }: Props) {
                     href={route('survey.services', item.uuid)}
                     className="block"
                 >
-                    <Card key={item.id} className='backdrop-blur bg-card/75 dark:border-slate-800 dark:hover:border-slate-500 border-primary/25 hover:border-primary/75 transition duration-300'>
+                    <Card key={item.id} className='backdrop-blur bg-card/75 border-primary/25 hover:border-primary/75 transition duration-300'>
                         <CardContent className='mt-6'>
                             <div>
                                 <img src="/assets/images/provinsi-gorontalo.png" alt="" className='h-20' />

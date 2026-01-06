@@ -5,11 +5,15 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ElementController;
 use App\Http\Controllers\Admin\IkmController;
 use App\Http\Controllers\Admin\QuestionController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\UnorController;
 use App\Http\Controllers\Admin\SkmController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\SurveyController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -30,6 +34,20 @@ Route::get('/tentang', fn() => Inertia::render('about'))->name('about');
 // Routing lama
 Route::get('/kuesioner/survei/{uuid}', [SurveyController::class, 'servicesv1'])->name('survey.servicesv1');
 Route::get('/kuesioner/survei/{uuid}/{serviceId}', [SurveyController::class, 'formv1'])->name('survey.formv1');
+
+
+// login admin
+Route::get('/login', [LoginController::class, 'show'])->name('login');
+Route::post('/login', [LoginController::class, 'process'])->name('login.process');
+Route::post('/logout', function () {
+    Auth::logout();
+
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+
+    return redirect('/');
+})->name('logout');
+
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
@@ -54,6 +72,9 @@ Route::prefix('admin')->group(function () {
     Route::match(['get', 'post'], '/skm/{skm}', [SkmController::class, 'show'])->name('admin.skm.show');
     Route::resource('/skm.service', ServiceController::class)->names('admin.service');
     Route::match(['get', 'post'], '/ikm', [IkmController::class, 'index'])->name('admin.ikm.index');
+
+    Route::resource('/user', UserController::class)->names('admin.user');
+    Route::resource('/role', RoleController::class)->names('admin.role');
 });
 
-require __DIR__ . '/auth.php';
+// require __DIR__ . '/auth.php';

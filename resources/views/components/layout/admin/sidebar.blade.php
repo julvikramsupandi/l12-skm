@@ -13,12 +13,12 @@
                  <div class="card-body">
                      <div class="d-flex align-items-center">
                          <div class="flex-shrink-0">
-                             <img src="{{ asset('assets/admin/images/user/avatar-1.jpg') }}" alt="user-image"
-                                 class="user-avtar wid-45 rounded-circle" />
+                             <img src="{{ auth()->user()->avatar ? auth()->user()->avatar : asset('assets/admin/images/user/avatar-1.jpg') }}"
+                                 alt="user-image" class="user-avtar wid-45 rounded-circle" style="height: 45px" />
                          </div>
                          <div class="flex-grow-1 ms-3 me-2" style="max-width: 120px">
-                             <h6 class="mb-0 text-truncate">Jonh Smith</h6>
-                             <small>Administrator</small>
+                             <h6 class="mb-0 text-truncate">{{ auth()->user()->name }}</h6>
+                             <small>{{ auth()->user()->getRoleNames()->first() ?? 'User' }}</small>
                          </div>
                          <a class="btn btn-icon btn-link-secondary avtar" data-bs-toggle="collapse"
                              href="#pc_sidebar_userlink">
@@ -41,10 +41,14 @@
                                  <i class="ti ti-lock"></i>
                                  <span>Lock Screen</span>
                              </a> --}}
-                             <a href="#!">
-                                 <i class="ti ti-power"></i>
-                                 <span>Keluar</span>
-                             </a>
+                             <form method="POST" action="{{ route('logout') }}">
+                                 @csrf
+                                 <a href="javascript:void(0);"
+                                     onclick="event.preventDefault(); this.closest('form').submit();">
+                                     <i class="ti ti-power"></i>
+                                     <span>Keluar</span>
+                                 </a>
+                             </form>
                          </div>
                      </div>
                  </div>
@@ -54,48 +58,87 @@
                  {{-- <li class="pc-item pc-caption">
                      <label>Navigation</label>
                  </li> --}}
+                 @can('dashboard.view')
+                     <li class="pc-item">
+                         <a href="{{ route('admin.dashboard.index') }}" class="pc-link">
+                             <span class="pc-micon">
+                                 <svg class="pc-icon">
+                                     <use xlink:href="#custom-home"></use>
+                                 </svg>
+                             </span>
+                             <span class="pc-mtext">Dashboard</span>
+                         </a>
+                     </li>
+                 @endcan
 
-                 <li class="pc-item">
-                     <a href="{{ route('admin.dashboard.index') }}" class="pc-link">
-                         <span class="pc-micon">
-                             <svg class="pc-icon">
-                                 <use xlink:href="#custom-home"></use>
-                             </svg>
-                         </span>
-                         <span class="pc-mtext">Dashboard</span>
-                     </a>
-                 </li>
+                 @canany(['skm.view', 'ikm.view'])
+                     <li class="pc-item pc-caption">
+                         <label>Indeks Kepuasan Masyarakat</label>
+                     </li>
+                 @endcan
 
-                 <li class="pc-item pc-caption">
-                     <label>Indeks Kepuasan Masyarakat</label>
-                 </li>
-                 <li class="pc-item">
-                     <a href="{{ route('admin.skm.index') }}" class="pc-link">
-                         <span class="pc-micon">
-                             <svg class="pc-icon">
-                                 <use xlink:href="#custom-status-up"></use>
-                             </svg>
-                         </span>
-                         <span class="pc-mtext">IKM OPD</span>
-                     </a>
-                 </li>
-                 <li class="pc-item">
-                     <a href="{{ route('admin.ikm.index') }}" class="pc-link">
-                         <span class="pc-micon">
-                             <svg class="pc-icon">
-                                 <use xlink:href="#custom-notification-status"></use>
-                             </svg>
-                         </span>
-                         <span class="pc-mtext">IKM Provinsi</span>
-                     </a>
-                 </li>
+                 @can('skm.view')
+                     <li class="pc-item">
+                         <a href="{{ route('admin.skm.index') }}" class="pc-link">
+                             <span class="pc-micon">
+                                 <svg class="pc-icon">
+                                     <use xlink:href="#custom-status-up"></use>
+                                 </svg>
+                             </span>
+                             <span class="pc-mtext">IKM OPD</span>
+                         </a>
+                     </li>
+                 @endcan
+
+                 @can('skm.show')
+                     @cannot('skm.view')
+                         <li class="pc-item">
+                             @if (auth()->user()->unor_id == null)
+                                 <a href="javascript:void(0);"
+                                     onclick="return alert('Anda belum terdaftar di OPD manapun. Silahkan hubungi Admin untuk melakukan pendaftaran.')"
+                                     class="pc-link">
+                                     <span class="pc-micon">
+                                         <svg class="pc-icon">
+                                             <use xlink:href="#custom-status-up"></use>
+                                         </svg>
+                                     </span>
+                                     <span class="pc-mtext">IKM OPD</span>
+                                 </a>
+                             @else
+                                 <a href="{{ route('admin.skm.show', auth()->user()->unor_id) }}" class="pc-link">
+                                     <span class="pc-micon">
+                                         <svg class="pc-icon">
+                                             <use xlink:href="#custom-status-up"></use>
+                                         </svg>
+                                     </span>
+                                     <span class="pc-mtext">IKM OPD</span>
+                                 </a>
+                             @endif
+                         </li>
+                     @endcannot
+                 @endcan
+
+                 @can('ikm.view')
+                     <li class="pc-item">
+                         <a href="{{ route('admin.ikm.index') }}" class="pc-link">
+                             <span class="pc-micon">
+                                 <svg class="pc-icon">
+                                     <use xlink:href="#custom-notification-status"></use>
+                                 </svg>
+                             </span>
+                             <span class="pc-mtext">IKM Provinsi Gorontalo</span>
+                         </a>
+                     </li>
+                 @endcan
 
 
                  <li class="pc-item pc-caption">
                      <label>Laporan</label>
                  </li>
                  <li class="pc-item">
-                     <a href="{{ route('admin.dashboard.index') }}" class="pc-link">
+                     <a href="javascript:void(0);"
+                         onclick="return alert('Fitur ini masih dalam proses pengembangan. Terima Kasih.')"
+                         class="pc-link">
                          <span class="pc-micon">
                              <svg class="pc-icon">
                                  <use xlink:href="#custom-document"></use>
@@ -105,52 +148,97 @@
                      </a>
                  </li>
 
-                 <li class="pc-item pc-caption">
-                     <label>Master Data</label>
-                 </li>
-                 <li class="pc-item">
-                     <a href="{{ route('admin.element.index') }}" class="pc-link">
-                         <span class="pc-micon">
-                             <svg class="pc-icon">
-                                 <use xlink:href="#custom-layer"></use>
-                             </svg>
-                         </span>
-                         <span class="pc-mtext">Unsur</span>
-                     </a>
-                 </li>
+                 @canany(['user.view', 'role.view'])
+                     <li class="pc-item pc-caption">
+                         <label>Manajemen Pengguna</label>
+                     </li>
+                 @endcan
 
-                 <li class="pc-item">
-                     <a href="{{ route('admin.answer_option.index') }}" class="pc-link">
-                         <span class="pc-micon">
-                             <svg class="pc-icon">
-                                 <use xlink:href="#custom-text-align-justify-center"></use>
-                             </svg>
-                         </span>
-                         <span class="pc-mtext">Opsi Jawaban</span>
-                     </a>
-                 </li>
+                 @can('user.view')
+                     <li class="pc-item">
+                         <a href="{{ route('admin.user.index') }}" class="pc-link">
+                             <span class="pc-micon">
+                                 <svg class="pc-icon">
+                                     <use xlink:href="#custom-user"></use>
+                                 </svg>
+                             </span>
+                             <span class="pc-mtext">Pengguna</span>
+                         </a>
+                     </li>
+                 @endcan
 
-                 <li class="pc-item">
-                     <a href="{{ route('admin.question.index') }}" class="pc-link">
-                         <span class="pc-micon">
-                             <svg class="pc-icon">
-                                 <use xlink:href="#custom-notification-status"></use>
-                             </svg>
-                         </span>
-                         <span class="pc-mtext">Pertanyaan</span>
-                     </a>
-                 </li>
+                 @can('role.view')
+                     <li class="pc-item">
+                         <a href="{{ route('admin.role.index') }}" class="pc-link">
+                             <span class="pc-micon">
+                                 <svg class="pc-icon">
+                                     <use xlink:href="#custom-shopping-bag"></use>
+                                 </svg>
+                             </span>
+                             <span class="pc-mtext">Peran (Role)</span>
+                         </a>
+                     </li>
+                 @endcan
 
-                 <li class="pc-item">
-                     <a href="{{ route('admin.unor.index') }}" class="pc-link">
-                         <span class="pc-micon">
-                             <svg class="pc-icon">
-                                 <use xlink:href="#custom-box-1"></use>
-                             </svg>
-                         </span>
-                         <span class="pc-mtext">Unit Organisasi</span>
-                     </a>
-                 </li>
+                 @canany(['element.view', 'answer_option.view', 'question.view', 'unor.view'])
+                     <li class="pc-item pc-caption">
+                         <label>Master Data</label>
+                     </li>
+                 @endcan
+
+                 @can('element.view')
+                     <li class="pc-item">
+                         <a href="{{ route('admin.element.index') }}" class="pc-link">
+                             <span class="pc-micon">
+                                 <svg class="pc-icon">
+                                     <use xlink:href="#custom-layer"></use>
+                                 </svg>
+                             </span>
+                             <span class="pc-mtext">Unsur</span>
+                         </a>
+                     </li>
+                 @endcan
+
+                 @can('answer_option.view')
+                     <li class="pc-item">
+                         <a href="{{ route('admin.answer_option.index') }}" class="pc-link">
+                             <span class="pc-micon">
+                                 <svg class="pc-icon">
+                                     <use xlink:href="#custom-text-align-justify-center"></use>
+                                 </svg>
+                             </span>
+                             <span class="pc-mtext">Opsi Jawaban</span>
+                         </a>
+                     </li>
+                 @endcan
+
+
+                 @can('question.view')
+                     <li class="pc-item">
+                         <a href="{{ route('admin.question.index') }}" class="pc-link">
+                             <span class="pc-micon">
+                                 <svg class="pc-icon">
+                                     <use xlink:href="#custom-notification-status"></use>
+                                 </svg>
+                             </span>
+                             <span class="pc-mtext">Pertanyaan</span>
+                         </a>
+                     </li>
+                 @endcan
+
+
+                 @can('unor.view')
+                     <li class="pc-item">
+                         <a href="{{ route('admin.unor.index') }}" class="pc-link">
+                             <span class="pc-micon">
+                                 <svg class="pc-icon">
+                                     <use xlink:href="#custom-box-1"></use>
+                                 </svg>
+                             </span>
+                             <span class="pc-mtext">Unit Organisasi</span>
+                         </a>
+                     </li>
+                 @endcan
 
              </ul>
          </div>

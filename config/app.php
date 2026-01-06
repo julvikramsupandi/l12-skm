@@ -2,6 +2,12 @@
 
 return [
 
+    // Change the default admin email
+    'super_admin_email' => env('SUPER_ADMIN_EMAIL'),
+
+    // Change the default admin password
+    'super_admin_password' => env('SUPER_ADMIN_PASSWORD'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

@@ -65,7 +65,7 @@ export default function QuestionnaireForm({ skm, service, questions, respondentU
     }
 
     return (
-        <Card className='backdrop-blur bg-card/75 dark:border-slate-800 border-primary/25 '>
+        <Card className='backdrop-blur bg-card/75 border-primary/25 '>
             <CardHeader>
                 <CardTitle>
                     {skm.unor.name}

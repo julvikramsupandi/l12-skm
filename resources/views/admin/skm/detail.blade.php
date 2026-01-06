@@ -262,22 +262,24 @@
                     </div>
 
                     <div class="mt-3">
-                        <table class="table table-bordered table-striped">
-                            <tr>
-                                <th class="text-center">NO</th>
-                                <th>NAMA</th>
-                                <th>LAYANAN</th>
-                                <th class="text-center">MASUKAN DAN SARAN</th>
-                            </tr>
-                            @foreach ($feedbacks as $feedback)
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
                                 <tr>
-                                    <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{ $feedback->respondent->respondent_name }}</td>
-                                    <td>{{ $feedback->respondent->service->name }}</td>
-                                    <td class="text-wrap">{{ $feedback->feedback }}</td>
+                                    <th class="text-center">NO</th>
+                                    <th>NAMA</th>
+                                    <th>LAYANAN</th>
+                                    <th class="text-center">MASUKAN DAN SARAN</th>
                                 </tr>
-                            @endforeach
-                        </table>
+                                @foreach ($feedbacks as $feedback)
+                                    <tr>
+                                        <td class="text-center">{{ $loop->iteration }}</td>
+                                        <td>{{ $feedback->respondent->respondent_name }}</td>
+                                        <td>{{ $feedback->respondent->service->name }}</td>
+                                        <td class="text-wrap">{{ $feedback->feedback }}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -3,18 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Element;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
-class ElementController extends Controller
+class UserController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('permission:element.view')->only(['index', 'show']);
-        $this->middleware('permission:element.create')->only(['create', 'store']);
-        $this->middleware('permission:element.edit')->only(['edit', 'update']);
-        $this->middleware('permission:element.delete')->only(['destroy']);
+        $this->middleware('permission:user.view')->only(['index', 'show']);
+        $this->middleware('permission:user.create')->only(['create', 'store']);
+        $this->middleware('permission:user.edit')->only(['edit', 'update']);
+        $this->middleware('permission:user.delete')->only(['destroy']);
     }
 
     /**
@@ -22,8 +24,10 @@ class ElementController extends Controller
      */
     public function index()
     {
-        $elements = Element::all();
-        return view('admin.element.index', compact('elements'));
+        $users = User::with('roles')->get();
+        // dd($users);
+        $roles = Role::orderBy('name')->get();
+        return view('admin.user.index', compact('users', 'roles'));
     }
 
     /**
@@ -40,16 +44,20 @@ class ElementController extends Controller
     public function store(Request $request)
     {
         try {
-            $request->validate([
-                'code' => 'required|max:255',
+            $validated = $request->validate([
                 'name' => 'required|max:255',
+                'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+                'password' => ['required'],
+                'role' => 'required|exists:roles,name',
             ]);
 
-            Element::create([
-                'code' => $request->code,
+            $user =   User::create([
                 'name' => $request->name,
-                'is_active' => $request->is_active,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
             ]);
+
+            $user->assignRole($validated['role']);
         } catch (\Throwable $th) {
 
             return redirect()->back()->with('toast', [
@@ -69,7 +77,7 @@ class ElementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Element $element)
+    public function show(User $user)
     {
         //
     }
@@ -77,7 +85,7 @@ class ElementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Element $element)
+    public function edit(User $user)
     {
         //
     }
@@ -85,21 +93,28 @@ class ElementController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Element $element)
+    public function update(Request $request, User $user)
     {
-
         try {
-            $request->validate([
-                'code' => 'required|max:255',
+            $validated =   $request->validate([
                 'name' => 'required|max:255',
+                'email' => 'required|string|lowercase|email|max:255|unique:' . User::class . ',email,' . $user->id,
+                'role' => 'required|exists:roles,name',
             ]);
 
+            $data = [
+                'name'      => $request->name,
+                'email'     => $request->email,
+            ];
 
-            $element->update([
-                'code' => $request->code,
-                'name' => $request->name,
-                'is_active' => $request->is_active,
-            ]);
+            if ($request->filled('password')) {
+                $data['password'] = Hash::make($request->password);
+            }
+
+
+            $user->update($data);
+
+            $user->syncRoles($validated['role']);
         } catch (\Throwable $th) {
 
             return redirect()->back()->with('toast', [
@@ -119,11 +134,11 @@ class ElementController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Element $element)
+    public function destroy(User $user)
     {
-        $element->delete();
+        $user->delete();
 
-        return  redirect()->back()
+        return redirect()->back()
             ->with('toast', [
                 'type' => 'success',
                 'title' => 'Berhasil',

@@ -31,7 +31,7 @@ export default function ServiceListCard({ uuid, services }: Props) {
                     href={route('survey.form', [uuid, item.id])}
                     className="block"
                 >
-                    <Card key={item.id} className='backdrop-blur bg-card/75 dark:border-slate-800 dark:hover:border-slate-500 border-primary/25 hover:border-primary/75 transition duration-300'>
+                    <Card key={item.id} className='backdrop-blur bg-card/75 border-primary/25 hover:border-primary/75 transition duration-300'>
                         <CardContent className='mt-5'>
                             <Badge className={
                                 item.service_channel == 'ONLINE'

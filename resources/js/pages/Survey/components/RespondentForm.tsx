@@ -47,7 +47,7 @@ export default function RespondentForm({ uuid, serviceId, serviceName }: Respond
 
     return (
         <form onSubmit={submit} className="space-y-6">
-            <Card className='backdrop-blur bg-card/75 dark:border-slate-800 border-primary/25 '>
+            <Card className='backdrop-blur bg-card/75 border-primary/25 '>
                 <CardHeader>
                     <CardTitle>{serviceName}</CardTitle>
                     <CardDescription>
