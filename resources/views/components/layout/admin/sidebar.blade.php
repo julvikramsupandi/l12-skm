@@ -199,7 +199,7 @@
                      </li>
                  @endcan
 
-                 @can('answer_option.view')
+                 @can('answer-option.view')
                      <li class="pc-item">
                          <a href="{{ route('admin.answer_option.index') }}" class="pc-link">
                              <span class="pc-micon">
