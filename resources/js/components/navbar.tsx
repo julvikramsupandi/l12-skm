@@ -13,8 +13,9 @@ export default function Navbar() {
     // 🎯 Daftar menu — hanya didefinisikan sekali
     const menus = [
         { name: "Beranda", href: "/" },
-        { name: "Survei", href: "/survey" },
-        { name: "Hasil", href: "/tentang" },
+        { name: "Form Survei", href: "/survey" },
+        { name: "Hasil Survei", href: "/result" },
+        { name: "Responden", href: "/respondent" },
         // { name: "Responden", href: "/kontak" },
     ];
 
@@ -40,7 +41,7 @@ export default function Navbar() {
                                     <NavigationMenuLink asChild>
                                         <Link
                                             href={menu.href}
-                                            className="text-primary-foreground hover:text-primary-foreground/75"
+                                            className="text-sm text-primary-foreground hover:text-primary-foreground/75"
                                         >
                                             {menu.name}
                                         </Link>
@@ -52,7 +53,7 @@ export default function Navbar() {
                             <Separator orientation="vertical" />
                         </NavigationMenuList>
                         <NavigationMenuList asChild>
-                            <a href={route('login')} className="text-primary-foreground hover:text-primary-foreground/75">
+                            <a href={route('login')} className="text-sm  text-primary-foreground hover:text-primary-foreground/75">
                                 Masuk
                             </a>
                         </NavigationMenuList>

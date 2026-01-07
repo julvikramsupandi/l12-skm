@@ -34,7 +34,7 @@ export default function SkmListCard({ skms }: Props) {
                             <div>
                                 <img src="/assets/images/provinsi-gorontalo.png" alt="" className='h-20' />
                             </div>
-                            <h1 className='text-lg text-primary font-medium'>{item.unor.name}</h1>
+                            <h1 className='text-lg font-medium'>{item.unor.name}</h1>
                             <p className="text-sm text-muted-foreground  line-clamp-1">
                                 {item.unor.address}
                             </p>

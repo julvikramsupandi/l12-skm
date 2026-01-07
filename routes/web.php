@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\SkmController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\RespondentController;
 use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,12 +21,16 @@ use Inertia\Inertia;
 // Landing Page (Inertia React)
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 
+// Survey
 Route::get('/survey', [SurveyController::class, 'index'])->name('survey');
 Route::get('/survey/{uuid}/services', [SurveyController::class, 'services'])->name('survey.services');
 Route::get('/survey/{uuid}/{serviceId}/form', [SurveyController::class, 'form'])->name('survey.form');
 Route::post('/survey/{uuid}/{serviceId}/store', [SurveyController::class, 'store'])->name('survey.store');
 Route::get('/survey/{uuid}/{serviceId}/{respondentUuid}/questionnaire', [SurveyController::class, 'questionnaire'])->name('survey.questionnaire');
 Route::post('/survey/submit', [SurveyController::class, 'submit'])->name('survey.submit');
+
+// Respondent
+Route::get('/respondent', [RespondentController::class, 'index'])->name('respondent');
 
 
 Route::get('/tentang', fn() => Inertia::render('about'))->name('about');
