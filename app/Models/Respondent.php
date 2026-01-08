@@ -54,7 +54,7 @@ class Respondent extends Model
         ?int $skmId = null,
         ?int $serviceId = null,
         ?int $year = null,
-        ?int $month = null
+        string|int|null $month = null
     ): Builder {
         return self::query()
             ->when(
@@ -76,18 +76,38 @@ class Respondent extends Model
                 fn($q) =>
                 $q->whereYear('created_at', $year)
             )
-            ->when(
-                $month,
-                fn($q) =>
-                $q->whereMonth('created_at', $month)
-            );
+            ->when($month, function ($q) use ($month) {
+
+                // Jika bulan numerik (1–12)
+                if (is_numeric($month)) {
+                    $q->whereMonth('created_at', (int) $month);
+                }
+
+                // Triwulan
+                elseif (str_starts_with($month, 'TW')) {
+                    match ($month) {
+                        'TW1' => $q->whereMonth('created_at', [1, 2, 3]),
+                        'TW2' => $q->whereMonth('created_at', [4, 5, 6]),
+                        'TW3' => $q->whereMonth('created_at', [7, 8, 9]),
+                        'TW4' => $q->whereMonth('created_at', [10, 11, 12]),
+                    };
+                }
+
+                // Semester
+                elseif (str_starts_with($month, 'S')) {
+                    match ($month) {
+                        'S1' => $q->whereMonth('created_at', [1, 2, 3, 4, 5, 6]),
+                        'S2' => $q->whereMonth('created_at', [7, 8, 9, 10, 11, 12]),
+                    };
+                }
+            });
     }
 
     public static function countRespondent(
         ?int $skmId = null,
         ?int $serviceId = null,
         ?int $year = null,
-        ?int $month = null
+        string|int|null $month = null
     ): int {
         return self::baseQuery($skmId, $serviceId, $year, $month)->count();
     }
@@ -97,13 +117,23 @@ class Respondent extends Model
         ?int $skmId = null,
         ?int $serviceId = null,
         ?int $year = null,
-        ?int $month = null
+        string|int|null $month = null
     ): array {
         return self::baseQuery($skmId, $serviceId, $year, $month)
             ->select($column, \DB::raw('COUNT(*) as total'))
             ->groupBy($column)
             ->pluck('total', $column)
             ->all();
+    }
+
+    public static function countByRespondent(
+        ?int $skmId = null,
+        ?int $serviceId = null,
+        ?int $year = null,
+        string|int|null $month = null
+    ): int {
+        return self::baseQuery($skmId, $serviceId, $year, $month)
+            ->count();
     }
 
 
@@ -119,7 +149,7 @@ class Respondent extends Model
     }
 
 
-    public static function listEducation()
+    public static function listEducation(): array
     {
         $educations = array(
             "Tidak sekolah",
@@ -135,7 +165,7 @@ class Respondent extends Model
         return $educations;
     }
 
-    public static function listOccupation()
+    public static function listOccupation(): array
     {
         $occupations = array(
             "ASN",
@@ -153,7 +183,7 @@ class Respondent extends Model
         return $occupations;
     }
 
-    public static function listDisabilityType()
+    public static function listDisabilityType(): array
     {
         $disabilityTypes = array(
             "Disabilitas Fisik",

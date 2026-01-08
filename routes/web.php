@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ElementController;
 use App\Http\Controllers\Admin\IkmController;
 use App\Http\Controllers\Admin\QuestionController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\UnorController;
@@ -77,6 +78,8 @@ Route::prefix('admin')->group(function () {
     Route::match(['get', 'post'], '/skm/{skm}', [SkmController::class, 'show'])->name('admin.skm.show');
     Route::resource('/skm.service', ServiceController::class)->names('admin.service');
     Route::match(['get', 'post'], '/ikm', [IkmController::class, 'index'])->name('admin.ikm.index');
+
+    Route::match(['get', 'post'], '/report/analytic-respondents', [ReportController::class, 'AnalyticRespondent'])->name('admin.report.analytic-respondents');
 
     Route::resource('/user', UserController::class)->names('admin.user');
     Route::resource('/role', RoleController::class)->names('admin.role');

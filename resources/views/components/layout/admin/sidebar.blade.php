@@ -136,7 +136,7 @@
                      <label>Laporan</label>
                  </li>
                  <li class="pc-item">
-                     <a href="javascript:void(0);" class="pc-link">
+                     <a href="{{ route('admin.report.analytic-respondents') }}" class="pc-link">
                          <span class="pc-micon">
                              <svg class="pc-icon">
                                  <use xlink:href="#custom-document"></use>

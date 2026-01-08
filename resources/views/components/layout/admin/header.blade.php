@@ -4,7 +4,7 @@
              <ul class="list-unstyled">
                  <!-- ======= Menu collapse Icon ===== -->
                  <li class="pc-h-item pc-sidebar-collapse">
-                     <a href="#" class="pc-head-link ms-0" id="sidebar-hide">
+                     <a href="javascript:void(0)" class="pc-head-link ms-0" id="sidebar-hide">
                          <i>
                              <svg class="pc-icon">
                                  <use xlink:href="#custom-row-vertical"></use>
@@ -13,7 +13,7 @@
                      </a>
                  </li>
                  <li class="pc-h-item pc-sidebar-popup">
-                     <a href="#" class="pc-head-link ms-0" id="mobile-collapse">
+                     <a href="javascript:void(0)" class="pc-head-link ms-0" id="mobile-collapse">
                          <i>
                              <svg class="pc-icon">
                                  <use xlink:href="#custom-row-vertical"></use>
