@@ -21,9 +21,9 @@
                          </i>
                      </a>
                  </li>
-                 {{-- <li class="pc-h-item d-none d-md-inline-flex">
-                     Dinas Komunikasi, Informatika dan Statistik
-                 </li> --}}
+                 <li class="pc-h-item d-none d-md-inline-flex">
+                     {{ auth()->user->unor_name ?? '' }}
+                 </li>
              </ul>
          </div>
          <!-- [Mobile Media Block end] -->

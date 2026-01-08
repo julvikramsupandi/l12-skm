@@ -90,32 +90,30 @@
                      </li>
                  @endcan
 
-                 @can('skm.show')
-                     @cannot('skm.view')
-                         <li class="pc-item">
-                             @if (auth()->user()->unor_id == null)
-                                 <a href="javascript:void(0);"
-                                     onclick="return alert('Anda belum terdaftar di OPD manapun. Silahkan hubungi Admin untuk melakukan pendaftaran.')"
-                                     class="pc-link">
-                                     <span class="pc-micon">
-                                         <svg class="pc-icon">
-                                             <use xlink:href="#custom-status-up"></use>
-                                         </svg>
-                                     </span>
-                                     <span class="pc-mtext">IKM OPD</span>
-                                 </a>
-                             @else
-                                 <a href="{{ route('admin.skm.show', auth()->user()->unor_id) }}" class="pc-link">
-                                     <span class="pc-micon">
-                                         <svg class="pc-icon">
-                                             <use xlink:href="#custom-status-up"></use>
-                                         </svg>
-                                     </span>
-                                     <span class="pc-mtext">IKM OPD</span>
-                                 </a>
-                             @endif
-                         </li>
-                     @endcannot
+                 @can('skm.show-by-unor')
+                     <li class="pc-item">
+                         @if (auth()->user()->unor_id == null)
+                             <a href="javascript:void(0);"
+                                 onclick="return alert('Anda belum terdaftar di OPD manapun. Silahkan hubungi Admin untuk melakukan pendaftaran.')"
+                                 class="pc-link">
+                                 <span class="pc-micon">
+                                     <svg class="pc-icon">
+                                         <use xlink:href="#custom-status-up"></use>
+                                     </svg>
+                                 </span>
+                                 <span class="pc-mtext">IKM OPD</span>
+                             </a>
+                         @else
+                             <a href="{{ route('admin.skm.by-unor') }}" class="pc-link">
+                                 <span class="pc-micon">
+                                     <svg class="pc-icon">
+                                         <use xlink:href="#custom-status-up"></use>
+                                     </svg>
+                                 </span>
+                                 <span class="pc-mtext">IKM OPD</span>
+                             </a>
+                         @endif
+                     </li>
                  @endcan
 
                  @can('ikm.view')
@@ -135,16 +133,31 @@
                  <li class="pc-item pc-caption">
                      <label>Laporan</label>
                  </li>
-                 <li class="pc-item">
-                     <a href="{{ route('admin.report.analytic-respondents') }}" class="pc-link">
-                         <span class="pc-micon">
-                             <svg class="pc-icon">
-                                 <use xlink:href="#custom-document"></use>
-                             </svg>
-                         </span>
-                         <span class="pc-mtext">Lap. Analisis Responden</span>
-                     </a>
-                 </li>
+                 @can('report.analytic-respondent')
+                     <li class="pc-item">
+                         <a href="{{ route('admin.report.analytic-respondents') }}" class="pc-link">
+                             <span class="pc-micon">
+                                 <svg class="pc-icon">
+                                     <use xlink:href="#custom-document"></use>
+                                 </svg>
+                             </span>
+                             <span class="pc-mtext">Lap. Analisis Responden</span>
+                         </a>
+                     </li>
+                 @endcan
+
+                 @can('report.analytic-respondent-by-unor')
+                     <li class="pc-item">
+                         <a href="{{ route('admin.report.analytic-respondents-by-unor') }}" class="pc-link">
+                             <span class="pc-micon">
+                                 <svg class="pc-icon">
+                                     <use xlink:href="#custom-document"></use>
+                                 </svg>
+                             </span>
+                             <span class="pc-mtext">Lap. Analisis Responden</span>
+                         </a>
+                     </li>
+                 @endcan
 
                  {{-- <li class="pc-item">
                      <a href="{{ route('admin.user.index') }}" class="pc-link">

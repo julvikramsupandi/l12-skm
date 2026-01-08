@@ -21,9 +21,10 @@
                         <label class="form-label">Nama Peran (Role)</label>
                         <input type="text" class="form-control" id="name" name="name"
                             placeholder="Contoh : SuperAdmin">
-                        <span class="text-primary text-sm">Rekomendasi nama role menggunakan CamelCase agar lebih mudah
-                            dibaca dan
-                            dipahami.</span>
+                        <span class="text-primary text-sm">
+                            Rekomendasi nama role menggunakan PascalCase
+                            agar lebih mudah dibaca dan dipahami.
+                        </span>
                     </div>
 
                     <div class="mb-3">

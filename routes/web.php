@@ -74,12 +74,14 @@ Route::prefix('admin')->group(function () {
     Route::resource('/question', QuestionController::class)->names('admin.question');
     Route::resource('/unor', UnorController::class)->names('admin.unor');
 
+    Route::match(['get', 'post'], '/skm/by-unor', [SkmController::class, 'showByUnor'])->name('admin.skm.by-unor');
     Route::resource('/skm', SkmController::class)->names('admin.skm');
     Route::match(['get', 'post'], '/skm/{skm}', [SkmController::class, 'show'])->name('admin.skm.show');
     Route::resource('/skm.service', ServiceController::class)->names('admin.service');
     Route::match(['get', 'post'], '/ikm', [IkmController::class, 'index'])->name('admin.ikm.index');
 
-    Route::match(['get', 'post'], '/report/analytic-respondents', [ReportController::class, 'AnalyticRespondent'])->name('admin.report.analytic-respondents');
+    Route::match(['get', 'post'], '/report/analytic-respondents', [ReportController::class, 'analyticRespondent'])->name('admin.report.analytic-respondents');
+    Route::match(['get', 'post'], '/report/analytic-respondents-by-unor', [ReportController::class, 'analyticRespondentByUnor'])->name('admin.report.analytic-respondents-by-unor');
 
     Route::resource('/user', UserController::class)->names('admin.user');
     Route::resource('/role', RoleController::class)->names('admin.role');

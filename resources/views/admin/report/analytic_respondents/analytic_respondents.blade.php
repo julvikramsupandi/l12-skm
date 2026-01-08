@@ -20,15 +20,17 @@
                     <form action="{{ route('admin.report.analytic-respondents') }}" method="post">
                         @csrf
                         <div class="row g-2">
-                            <div class="col-lg-12">
-                                <select name="skm" id="select-skm" class="choices" onchange="this.form.submit()">
-                                    <option value="">- Provinsi Gorontalo -</option>
-                                    @foreach ($skms as $item)
-                                        <option {{ $skmSelected == $item->id ? 'selected' : '' }}
-                                            value="{{ $item->id }}">{{ $item->unor->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            @cannot('report.analytic-respondent-by-unor')
+                                <div class="col-lg-12">
+                                    <select name="skm" id="select-skm" class="choices" onchange="this.form.submit()">
+                                        <option value="">- Provinsi Gorontalo -</option>
+                                        @foreach ($skms as $item)
+                                            <option {{ $skmSelected == $item->id ? 'selected' : '' }}
+                                                value="{{ $item->id }}">{{ $item->unor->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endcannot
                             <div class="col-lg-12">
                                 <select name="service" id="select-service" class="choices">
                                     <option value="">- Semua Layanan -</option>

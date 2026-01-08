@@ -21,6 +21,7 @@ class SkmController extends Controller
     {
         $this->middleware('permission:skm.view')->only(['index']);
         $this->middleware('permission:skm.show')->only(['show']);
+        $this->middleware('permission:skm.show-by-unor')->only(['showByUnor']);
         $this->middleware('permission:skm.create')->only(['create', 'store']);
         $this->middleware('permission:skm.edit')->only(['edit', 'update']);
         $this->middleware('permission:skm.delete')->only(['destroy']);
@@ -98,7 +99,23 @@ class SkmController extends Controller
      */
     public function show(Skm $skm, Request $request)
     {
-        $skm = Skm::with('unor')->find($skm->id);
+        echo "test";
+
+        // $skm = Skm::with('unor')->find($skm->id);
+
+        // return $this->renderShow($skm, $request);
+    }
+
+    public function showByUnor(Request $request)
+    {
+        $unor_id = auth()->user()->unor_id;
+        $skm = Skm::with('unor')->where('unor_id', $unor_id)->first();
+
+        return $this->renderShow($skm, $request);
+    }
+
+    private function renderShow(Skm $skm, Request $request)
+    {
         $services = Service::where('skm_id', $skm->id)->get();
 
         $serviceSelectedName = 'Semua Layanan';
