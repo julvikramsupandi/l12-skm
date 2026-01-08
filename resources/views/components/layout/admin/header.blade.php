@@ -22,7 +22,7 @@
                      </a>
                  </li>
                  <li class="pc-h-item d-none d-md-inline-flex">
-                     {{ auth()->user->unor_name ?? '' }}
+                     {{ auth()->user()->unor_name ?? '' }}
                  </li>
              </ul>
          </div>

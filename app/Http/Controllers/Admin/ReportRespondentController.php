@@ -8,7 +8,7 @@ use App\Models\Respondent;
 use App\Models\Service;
 use App\Models\Skm;
 
-class ReportController extends Controller
+class ReportRespondentController extends Controller
 
 {
 
@@ -53,7 +53,7 @@ class ReportController extends Controller
     {
 
         $unorId = auth()->user()->unor_id;
-        $skm = Skm::with('unor')->where('unor_id', $unor_id)->first();
+        $skm = Skm::with('unor')->where('unor_id', $unorId)->first();
 
         $skmSelectedName = $skm->unor->name;
         $skmSelected = $skm->id;
