@@ -14,7 +14,7 @@ class RespondentController extends Controller
 
         $unors = Unor::all();
         return Inertia::render('Respondent/RespondentPage', [
-            // 'title' => $title,
+        // 'title' => $title,
             'unors' => $unors,
         ]);
     }

@@ -118,6 +118,53 @@ class Respondent extends Model
             ->pluck('total', 'month');
     }
 
+
+    public static function listEducation()
+    {
+        $educations = array(
+            "Tidak sekolah",
+            "SD/Sederajat",
+            "SMP/Sederajat",
+            "SMA/Sederajat",
+            "D1/D2/D3",
+            "D4/S1",
+            "S2",
+            "S3",
+        );
+
+        return $educations;
+    }
+
+    public static function listOccupation()
+    {
+        $occupations = array(
+            "ASN",
+            "TNI",
+            "POLRI",
+            "Swasta",
+            "Wirausaha",
+            "Pelajar/Mahasiswa",
+            "Petani/Nelayan",
+            "Pekerja Lepas/Freelance",
+            "Pensiunan",
+            "Lainnya"
+        );
+
+        return $occupations;
+    }
+
+    public static function listDisabilityType()
+    {
+        $disabilityTypes = array(
+            "Disabilitas Fisik",
+            "Disabilitas Intelektual",
+            "Disabilitas Mental",
+            "Disabilitas Sensorik"
+        );
+
+        return $disabilityTypes;
+    }
+
     public function service()
     {
         return $this->belongsTo(Service::class, 'service_id');

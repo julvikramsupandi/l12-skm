@@ -85,7 +85,7 @@
                                      <use xlink:href="#custom-status-up"></use>
                                  </svg>
                              </span>
-                             <span class="pc-mtext">IKM OPD</span>
+                             <span class="pc-mtext">Daftar IKM OPD</span>
                          </a>
                      </li>
                  @endcan
@@ -136,17 +136,26 @@
                      <label>Laporan</label>
                  </li>
                  <li class="pc-item">
-                     <a href="javascript:void(0);"
-                         onclick="return alert('Fitur ini masih dalam proses pengembangan. Terima Kasih.')"
-                         class="pc-link">
+                     <a href="javascript:void(0);" class="pc-link">
                          <span class="pc-micon">
                              <svg class="pc-icon">
                                  <use xlink:href="#custom-document"></use>
                              </svg>
                          </span>
-                         <span class="pc-mtext">Laporan</span>
+                         <span class="pc-mtext">Lap. Analisis Responden</span>
                      </a>
                  </li>
+
+                 {{-- <li class="pc-item">
+                     <a href="{{ route('admin.user.index') }}" class="pc-link">
+                         <span class="pc-micon">
+                             <svg class="pc-icon">
+                                 <use xlink:href="#custom-user"></use>
+                             </svg>
+                         </span>
+                         <span class="pc-mtext">Pengguna</span>
+                     </a>
+                 </li> --}}
 
                  @canany(['user.view', 'role.view'])
                      <li class="pc-item pc-caption">

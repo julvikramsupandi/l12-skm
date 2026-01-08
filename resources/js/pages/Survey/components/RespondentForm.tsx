@@ -19,10 +19,13 @@ import { CheckCheckIcon, CheckCircle2Icon, CheckCircleIcon } from 'lucide-react'
 interface RespondentFormProps {
     uuid: string,
     serviceId: number,
-    serviceName: string
+    serviceName: string,
+    educations: string[],
+    occupations: string[],
+    disabilityTypes: string[],
 }
 
-export default function RespondentForm({ uuid, serviceId, serviceName }: RespondentFormProps) {
+export default function RespondentForm({ uuid, serviceId, serviceName, educations, occupations, disabilityTypes }: RespondentFormProps) {
     const { data, setData, post, processing, errors } = useForm({
         survey_date: new Date().toISOString().split('T')[0],
         survey_time: '08.00 - 12.00',
@@ -172,15 +175,11 @@ export default function RespondentForm({ uuid, serviceId, serviceName }: Respond
                                     <SelectValue placeholder="- Pilih Pendidikan -" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="Tidak sekolah">Tidak sekolah</SelectItem>
-                                    <SelectItem value="SD/Sederajat">SD/Sederajat</SelectItem>
-                                    <SelectItem value="SMP/Sederajat">SMP/Sederajat</SelectItem>
-                                    <SelectItem value="SMA/Sederajat">SMA/Sederajat</SelectItem>
-                                    <SelectItem value="D1/D2/D3">D1/D2/D3</SelectItem>
-                                    <SelectItem value="D4/S1">D4/S1</SelectItem>
-                                    <SelectItem value="S2">S2</SelectItem>
-                                    <SelectItem value="S3">S3</SelectItem>
-
+                                    {
+                                        educations.map((edu) => (
+                                            <SelectItem key={edu} value={edu}>{edu}</SelectItem>
+                                        ))
+                                    }
                                 </SelectContent>
                             </Select>
                             {
@@ -203,16 +202,13 @@ export default function RespondentForm({ uuid, serviceId, serviceName }: Respond
                                     <SelectValue placeholder="- Pilih Pekerjaan -" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="ASN">ASN</SelectItem>
-                                    <SelectItem value="TNI">TNI</SelectItem>
-                                    <SelectItem value="POLRI">POLRI</SelectItem>
-                                    <SelectItem value="Swasta">Swasta</SelectItem>
-                                    <SelectItem value="Wirausaha">Wirausaha</SelectItem>
-                                    <SelectItem value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</SelectItem>
-                                    <SelectItem value="Petani/Nelayan">Petani/Nelayan</SelectItem>
-                                    <SelectItem value="Pekerja Lepas/Freelance">Pekerja Lepas/Freelance</SelectItem>
-                                    <SelectItem value="Pensiunan">Pensiunan</SelectItem>
-                                    <SelectItem value="Lainnya">Lainnya</SelectItem>
+
+                                    {
+                                        occupations.map((occ) => (
+                                            <SelectItem key={occ} value={occ}>{occ}</SelectItem>
+                                        ))
+                                    }
+
                                 </SelectContent>
                             </Select>
                             {
@@ -262,10 +258,11 @@ export default function RespondentForm({ uuid, serviceId, serviceName }: Respond
                                     <SelectValue placeholder="- Pilih Jenis Disabilitas -" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="Disabilitas Fisik">Disabilitas Fisik</SelectItem>
-                                    <SelectItem value="Disabilitas Intelektual">Disabilitas Intelektual</SelectItem>
-                                    <SelectItem value="Disabilitas Mental">Disabilitas Mental</SelectItem>
-                                    <SelectItem value="Disabilitas Sensorik">Disabilitas Sensorik</SelectItem>
+                                    {
+                                        disabilityTypes.map((dis) => (
+                                            <SelectItem key={dis} value={dis}>{dis}</SelectItem>
+                                        ))
+                                    }
                                 </SelectContent>
                             </Select>
                             {

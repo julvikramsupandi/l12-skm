@@ -16,10 +16,13 @@ interface FormPageProps {
     uuid: string,
     serviceId: number,
     serviceName: string,
-    skm: Skm
+    skm: Skm,
+    educations: string[],
+    occupations: string[],
+    disabilityTypes: string[],
 }
 
-export default function FormPage({ title, uuid, serviceId, serviceName, skm }: FormPageProps) {
+export default function FormPage({ title, uuid, serviceId, serviceName, skm, educations, occupations, disabilityTypes }: FormPageProps) {
 
     return (
         <AppLayout>
@@ -63,6 +66,9 @@ export default function FormPage({ title, uuid, serviceId, serviceName, skm }: F
                 uuid={uuid}
                 serviceId={serviceId}
                 serviceName={serviceName}
+                educations={educations}
+                occupations={occupations}
+                disabilityTypes={disabilityTypes}
             />
 
         </AppLayout>

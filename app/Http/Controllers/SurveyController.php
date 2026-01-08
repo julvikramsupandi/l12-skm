@@ -60,12 +60,18 @@ class SurveyController extends Controller
 
         $service = Service::find($serviceId);
         $serviceName = $service->name;
+        $educations = Respondent::listEducation();
+        $occupations = Respondent::listOccupation();
+        $disabilityTypes = Respondent::listDisabilityType();
 
         return Inertia::render('Survey/FormPage', [
             'title' => 'Survei',
             'uuid' => $uuid,
             'serviceId' => $serviceId,
             'serviceName' => $serviceName,
+            'educations' => $educations,
+            'occupations' => $occupations,
+            'disabilityTypes' => $disabilityTypes,
             'skm' => $skm
         ]);
     }
