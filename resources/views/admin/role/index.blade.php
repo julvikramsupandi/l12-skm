@@ -45,11 +45,13 @@
                                                     data-bs-role="{{ json_encode($item) }}">
                                                     <i class="ph-duotone ph-pencil-line mx-1"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-outline-danger"
-                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                    data-id="{{ $item->id }}" data-label="{{ $item->name }}">
-                                                    <i class="ph-duotone ph-trash mx-1"></i>
-                                                </button>
+                                                @if ($item->id != 1 and $item->id != 2)
+                                                    <button type="button" class="btn btn-outline-danger"
+                                                        data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                        data-id="{{ $item->id }}" data-label="{{ $item->name }}">
+                                                        <i class="ph-duotone ph-trash mx-1"></i>
+                                                    </button>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

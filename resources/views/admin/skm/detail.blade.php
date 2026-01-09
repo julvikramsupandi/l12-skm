@@ -33,50 +33,47 @@
                         </div>
                     </div>
                     <div class="bg-body p-3 mt-3 rounded">
-                        @can('skm.show')
-                            <form action="{{ route('admin.skm.show', $skm->id) }}" method="post">
-                            @endcan
-                            @can('skm.show-by-unor')
-                                <form action="{{ route('admin.skm.by-unor') }}" method="post">
-                                @endcan
+                        <form
+                            action="{{ auth()->user()->can('skm.show') ? route('admin.skm.show', $skm->id) : route('admin.skm.by-unor') }}"
+                            method="post">
 
-                                @csrf
-                                <div class="row g-2">
-                                    <div class="col-lg-12">
-                                        <select name="service" id="select-service" class="choices">
-                                            <option value="">- Semua Layanan -</option>
-                                            @foreach ($services as $item)
-                                                <option {{ $serviceSelected == $item->id ? 'selected' : '' }}
-                                                    value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <select name="year" class="form-control">
-                                            @for ($i = date('Y'); $i >= 2022; $i--)
-                                                <option {{ $yearSelected == $i ? 'selected' : '' }}
-                                                    value="{{ $i }}">{{ $i }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <select name="month" class="form-control">
-                                            <option value="">- Semua Bulan -</option>
-                                            @for ($i = 1; $i <= 12; $i++)
-                                                <option {{ $monthSelected == $i ? 'selected' : '' }}
-                                                    value="{{ $i }}">
-                                                    {{ \Carbon\Carbon::createFromDate(null, $i, 1)->locale('id')->translatedFormat('F') }}
-                                                </option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-3 d-flex justify-content-center align-items-center">
-                                        <button class="btn btn-primary w-100 text-nowrap">
-                                            <i class="ph-duotone ph-eye"></i> Tampilkan
-                                        </button>
-                                    </div>
+                            @csrf
+                            <div class="row g-2">
+                                <div class="col-lg-12">
+                                    <select name="service" id="select-service" class="choices">
+                                        <option value="">- Semua Layanan -</option>
+                                        @foreach ($services as $item)
+                                            <option {{ $serviceSelected == $item->id ? 'selected' : '' }}
+                                                value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                            </form>
+                                <div class="col-lg-4">
+                                    <select name="year" class="form-control">
+                                        @for ($i = date('Y'); $i >= 2022; $i--)
+                                            <option {{ $yearSelected == $i ? 'selected' : '' }}
+                                                value="{{ $i }}">{{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <div class="col-lg-5">
+                                    <select name="month" class="form-control">
+                                        <option value="">- Semua Bulan -</option>
+                                        @for ($i = 1; $i <= 12; $i++)
+                                            <option {{ $monthSelected == $i ? 'selected' : '' }}
+                                                value="{{ $i }}">
+                                                {{ \Carbon\Carbon::createFromDate(null, $i, 1)->locale('id')->translatedFormat('F') }}
+                                            </option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 d-flex justify-content-center align-items-center">
+                                    <button class="btn btn-primary w-100 text-nowrap">
+                                        <i class="ph-duotone ph-eye"></i> Tampilkan
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

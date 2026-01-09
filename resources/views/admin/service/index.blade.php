@@ -60,18 +60,21 @@
                                             </span>
                                         </td>
                                         <td class="text-center">
-                                            <div class="btn-group btn-group-sm" role="group" aria-label="Action">
-                                                <button type="button" class="btn btn-outline-warning"
-                                                    data-bs-toggle="modal" data-bs-target="#formModal"
-                                                    data-bs-service="{{ json_encode($item) }}">
-                                                    <i class="ph-duotone ph-pencil-line mx-1"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-outline-danger"
-                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                    data-id="{{ $item->id }}" data-label="{{ $item->name }}">
-                                                    <i class="ph-duotone ph-trash mx-1"></i>
-                                                </button>
-                                            </div>
+                                            @if ($item->user_id == auth()->user()->id || auth()->user()->can('admin'))
+                                                <div class="btn-group btn-group-sm" role="group" aria-label="Action">
+                                                    <button type="button" class="btn btn-outline-warning"
+                                                        data-bs-toggle="modal" data-bs-target="#formModal"
+                                                        data-bs-service="{{ json_encode($item) }}">
+                                                        <i class="ph-duotone ph-pencil-line mx-1"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-danger"
+                                                        data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                        data-id="{{ $item->id }}"
+                                                        data-label="{{ $item->name }}">
+                                                        <i class="ph-duotone ph-trash mx-1"></i>
+                                                    </button>
+                                                </div>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

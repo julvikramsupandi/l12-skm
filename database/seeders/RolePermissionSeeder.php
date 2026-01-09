@@ -14,6 +14,8 @@ class RolePermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         $permissions = [
+            'superadmin',
+            'admin',
             // dashboard
             'dashboard.view',
 
@@ -106,6 +108,7 @@ class RolePermissionSeeder extends Seeder
 
         // ADMIN → SEMUA PERMISSION
         $admin->syncPermissions(Permission::whereNotIn('name', [
+            'superadmin',
             'skm.show-by-unor',
             'report.analytic-respondent-by-unor',
             'report.ikm-by-service-by-unor',

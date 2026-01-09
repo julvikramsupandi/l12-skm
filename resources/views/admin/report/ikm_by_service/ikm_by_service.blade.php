@@ -17,73 +17,69 @@
         <div class="col-xl-6">
             <div class="card">
                 <div class="card-body">
+                    <form
+                        action="{{ auth()->user()->can('report.ikm-by-service')
+                            ? route('admin.report.ikm-by-service')
+                            : route('admin.report.ikm-by-service-by-unor') }}"
+                        method="post">
 
-                    @can('report.ikm-by-service')
-                        <form action="{{ route('admin.report.ikm-by-service') }}" method="post">
-                        @endcan
-
-                        @can('report.ikm-by-service-by-unor')
-                            <form action="{{ route('admin.report.ikm-by-service-by-unor') }}" method="post">
-                            @endcan
-
-                            @csrf
-                            <div class="row g-2">
-                                @cannot('report.ikm-by-service-by-unor')
-                                    <div class="col-lg-12">
-                                        <select name="skm" id="select-skm" class="choices">
-                                            <option value="">- Provinsi Gorontalo -</option>
-                                            @foreach ($skms as $item)
-                                                <option {{ $skmSelected == $item->id ? 'selected' : '' }}
-                                                    value="{{ $item->id }}">{{ $item->unor->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                @endcannot
-                                <div class="col-lg-4">
-                                    <select name="year" class="form-control">
-                                        @for ($i = date('Y'); $i >= 2022; $i--)
-                                            <option {{ $yearSelected == $i ? 'selected' : '' }}
-                                                value="{{ $i }}">
-                                                {{ $i }}</option>
-                                        @endfor
+                        @csrf
+                        <div class="row g-2">
+                            @cannot('report.ikm-by-service-by-unor')
+                                <div class="col-lg-12">
+                                    <select name="skm" id="select-skm" class="choices">
+                                        <option value="">- Provinsi Gorontalo -</option>
+                                        @foreach ($skms as $item)
+                                            <option {{ $skmSelected == $item->id ? 'selected' : '' }}
+                                                value="{{ $item->id }}">{{ $item->unor->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
-                                <div class="col-lg-5">
-                                    <select name="month" class="form-control">
-                                        <optgroup label="Bulan">
-                                            <option value="">- Semua Bulan -</option>
-                                            @for ($i = 1; $i <= 12; $i++)
-                                                <option {{ $monthSelected == $i ? 'selected' : '' }}
-                                                    value="{{ $i }}">
-                                                    {{ \Carbon\Carbon::createFromDate(null, $i, 1)->locale('id')->translatedFormat('F') }}
-                                                </option>
-                                            @endfor
-                                        </optgroup>
-                                        <optgroup label="Triwulan">
-                                            @for ($i = 1; $i <= 4; $i++)
-                                                <option {{ $monthSelected == 'TW' . $i ? 'selected' : '' }}
-                                                    value="TW{{ $i }}">
-                                                    {{ periodLabel('TW' . $i) }}
-                                                </option>
-                                            @endfor
-                                        </optgroup>
-                                        <optgroup label="Semester">
-                                            @for ($i = 1; $i <= 2; $i++)
-                                                <option {{ $monthSelected == 'S' . $i ? 'selected' : '' }}
-                                                    value="S{{ $i }}">
-                                                    {{ periodLabel('S' . $i) }}
-                                                </option>
-                                            @endfor
-                                        </optgroup>
-                                    </select>
-                                </div>
-                                <div class="col-lg-3 d-flex justify-content-center align-items-center">
-                                    <button class="btn btn-primary w-100 text-nowrap">
-                                        <i class="ph-duotone ph-eye"></i> Proses
-                                    </button>
-                                </div>
+                            @endcannot
+                            <div class="col-lg-4">
+                                <select name="year" class="form-control">
+                                    @for ($i = date('Y'); $i >= 2022; $i--)
+                                        <option {{ $yearSelected == $i ? 'selected' : '' }} value="{{ $i }}">
+                                            {{ $i }}</option>
+                                    @endfor
+                                </select>
                             </div>
-                        </form>
+                            <div class="col-lg-5">
+                                <select name="month" class="form-control">
+                                    <optgroup label="Bulan">
+                                        <option value="">- Semua Bulan -</option>
+                                        @for ($i = 1; $i <= 12; $i++)
+                                            <option {{ $monthSelected == $i ? 'selected' : '' }}
+                                                value="{{ $i }}">
+                                                {{ \Carbon\Carbon::createFromDate(null, $i, 1)->locale('id')->translatedFormat('F') }}
+                                            </option>
+                                        @endfor
+                                    </optgroup>
+                                    <optgroup label="Triwulan">
+                                        @for ($i = 1; $i <= 4; $i++)
+                                            <option {{ $monthSelected == 'TW' . $i ? 'selected' : '' }}
+                                                value="TW{{ $i }}">
+                                                {{ periodLabel('TW' . $i) }}
+                                            </option>
+                                        @endfor
+                                    </optgroup>
+                                    <optgroup label="Semester">
+                                        @for ($i = 1; $i <= 2; $i++)
+                                            <option {{ $monthSelected == 'S' . $i ? 'selected' : '' }}
+                                                value="S{{ $i }}">
+                                                {{ periodLabel('S' . $i) }}
+                                            </option>
+                                        @endfor
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 d-flex justify-content-center align-items-center">
+                                <button class="btn btn-primary w-100 text-nowrap">
+                                    <i class="ph-duotone ph-eye"></i> Proses
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

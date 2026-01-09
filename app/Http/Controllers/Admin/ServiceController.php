@@ -47,7 +47,7 @@ class ServiceController extends Controller
             ]);
 
             Service::create([
-                'user_id' => 0,
+                'user_id' => auth()->user()->id,
                 'skm_id' => $skm->id,
                 'name' => $request->name,
                 'description' => $request->description,

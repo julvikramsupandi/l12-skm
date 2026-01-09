@@ -33,8 +33,15 @@
                                 @foreach ($users as $item)
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                        <td>
-                                            <img src="{{ $item->avatar }}" alt="avatar" width="120px">
+                                        <td class="text-center">
+                                            @if ($item->avatar == null)
+                                                <img src="{{ asset('assets/admin/images/user/avatar-1.jpg') }}"
+                                                    alt="" class="user-avtar wid-45 rounded-circle"
+                                                    style="height: 45px">
+                                            @else
+                                                <img src="{{ $item->avatar }}" alt="avatar"
+                                                    class="user-avtar wid-45 rounded-circle" style="height: 45px">
+                                            @endif
                                         </td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
@@ -47,11 +54,13 @@
                                                     data-bs-role="{{ json_encode($item->roles->pluck('name')->implode(', ')) }}">
                                                     <i class="ph-duotone ph-pencil-line mx-1"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-outline-danger"
-                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                    data-id="{{ $item->id }}" data-label="{{ $item->name }}">
-                                                    <i class="ph-duotone ph-trash mx-1"></i>
-                                                </button>
+                                                @if ($loop->iteration != 1)
+                                                    <button type="button" class="btn btn-outline-danger"
+                                                        data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                        data-id="{{ $item->id }}" data-label="{{ $item->name }}">
+                                                        <i class="ph-duotone ph-trash mx-1"></i>
+                                                    </button>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
