@@ -112,6 +112,17 @@ class Respondent extends Model
         return self::baseQuery($skmId, $serviceId, $year, $month)->count();
     }
 
+    public static function countRespondentByService(
+        ?int $skmId = null,
+        ?int $year = null,
+        string|int|null $month = null
+    ) {
+        return self::baseQuery($skmId, null, $year, $month)
+            ->select('service_id', DB::raw('COUNT(*) as total'))
+            ->groupBy('service_id')
+            ->pluck('total', 'service_id');
+    }
+
     public static function countBy(
         string $column,
         ?int $skmId = null,

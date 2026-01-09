@@ -5,7 +5,7 @@
     @php
 
         $labelMonth = $monthSelected
-            ? (is_int($monthSelected)
+            ? (is_numeric($monthSelected)
                 ? \Carbon\Carbon::createFromDate(null, $monthSelected, 1)->locale('id')->translatedFormat('F')
                 : periodLabel($monthSelected))
             : 'Semua Bulan';
@@ -17,73 +17,82 @@
         <div class="col-xl-6">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('admin.report.analytic-respondents') }}" method="post">
-                        @csrf
-                        <div class="row g-2">
-                            @cannot('report.analytic-respondent-by-unor')
+                    @can('report.analytic-respondent')
+                        <form action="{{ route('admin.report.analytic-respondents') }}" method="post">
+                        @endcan
+
+                        @can('report.analytic-respondent-by-unor')
+                            <form action="{{ route('admin.report.analytic-respondents-by-unor') }}" method="post">
+                            @endcan
+
+                            @csrf
+                            <div class="row g-2">
+                                @cannot('report.analytic-respondent-by-unor')
+                                    <div class="col-lg-12">
+                                        <select name="skm" id="select-skm" class="choices"
+                                            onchange="this.form.submit()">
+                                            <option value="">- Provinsi Gorontalo -</option>
+                                            @foreach ($skms as $item)
+                                                <option {{ $skmSelected == $item->id ? 'selected' : '' }}
+                                                    value="{{ $item->id }}">{{ $item->unor->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endcannot
                                 <div class="col-lg-12">
-                                    <select name="skm" id="select-skm" class="choices" onchange="this.form.submit()">
-                                        <option value="">- Provinsi Gorontalo -</option>
-                                        @foreach ($skms as $item)
-                                            <option {{ $skmSelected == $item->id ? 'selected' : '' }}
-                                                value="{{ $item->id }}">{{ $item->unor->name }}</option>
+                                    <select name="service" id="select-service" class="choices">
+                                        <option value="">- Semua Layanan -</option>
+                                        @foreach ($services as $item)
+                                            <option {{ $serviceSelected == $item->id ? 'selected' : '' }}
+                                                value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                            @endcannot
-                            <div class="col-lg-12">
-                                <select name="service" id="select-service" class="choices">
-                                    <option value="">- Semua Layanan -</option>
-                                    @foreach ($services as $item)
-                                        <option {{ $serviceSelected == $item->id ? 'selected' : '' }}
-                                            value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-lg-4">
-                                <select name="year" class="form-control">
-                                    @for ($i = date('Y'); $i >= 2022; $i--)
-                                        <option {{ $yearSelected == $i ? 'selected' : '' }} value="{{ $i }}">
-                                            {{ $i }}</option>
-                                    @endfor
-                                </select>
-                            </div>
-                            <div class="col-lg-5">
-                                <select name="month" class="form-control">
-                                    <optgroup label="Bulan">
-                                        <option value="">- Semua Bulan -</option>
-                                        @for ($i = 1; $i <= 12; $i++)
-                                            <option {{ $monthSelected == $i ? 'selected' : '' }}
+                                <div class="col-lg-4">
+                                    <select name="year" class="form-control">
+                                        @for ($i = date('Y'); $i >= 2022; $i--)
+                                            <option {{ $yearSelected == $i ? 'selected' : '' }}
                                                 value="{{ $i }}">
-                                                {{ \Carbon\Carbon::createFromDate(null, $i, 1)->locale('id')->translatedFormat('F') }}
-                                            </option>
+                                                {{ $i }}</option>
                                         @endfor
-                                    </optgroup>
-                                    <optgroup label="Triwulan">
-                                        @for ($i = 1; $i <= 4; $i++)
-                                            <option {{ $monthSelected == 'TW' . $i ? 'selected' : '' }}
-                                                value="TW{{ $i }}">
-                                                {{ periodLabel('TW' . $i) }}
-                                            </option>
-                                        @endfor
-                                    </optgroup>
-                                    <optgroup label="Semester">
-                                        @for ($i = 1; $i <= 2; $i++)
-                                            <option {{ $monthSelected == 'S' . $i ? 'selected' : '' }}
-                                                value="S{{ $i }}">
-                                                {{ periodLabel('S' . $i) }}
-                                            </option>
-                                        @endfor
-                                    </optgroup>
-                                </select>
+                                    </select>
+                                </div>
+                                <div class="col-lg-5">
+                                    <select name="month" class="form-control">
+                                        <optgroup label="Bulan">
+                                            <option value="">- Semua Bulan -</option>
+                                            @for ($i = 1; $i <= 12; $i++)
+                                                <option {{ $monthSelected == $i ? 'selected' : '' }}
+                                                    value="{{ $i }}">
+                                                    {{ \Carbon\Carbon::createFromDate(null, $i, 1)->locale('id')->translatedFormat('F') }}
+                                                </option>
+                                            @endfor
+                                        </optgroup>
+                                        <optgroup label="Triwulan">
+                                            @for ($i = 1; $i <= 4; $i++)
+                                                <option {{ $monthSelected == 'TW' . $i ? 'selected' : '' }}
+                                                    value="TW{{ $i }}">
+                                                    {{ periodLabel('TW' . $i) }}
+                                                </option>
+                                            @endfor
+                                        </optgroup>
+                                        <optgroup label="Semester">
+                                            @for ($i = 1; $i <= 2; $i++)
+                                                <option {{ $monthSelected == 'S' . $i ? 'selected' : '' }}
+                                                    value="S{{ $i }}">
+                                                    {{ periodLabel('S' . $i) }}
+                                                </option>
+                                            @endfor
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 d-flex justify-content-center align-items-center">
+                                    <button class="btn btn-primary w-100 text-nowrap">
+                                        <i class="ph-duotone ph-eye"></i> Proses
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col-lg-3 d-flex justify-content-center align-items-center">
-                                <button class="btn btn-primary w-100 text-nowrap">
-                                    <i class="ph-duotone ph-eye"></i> Proses
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
                 </div>
             </div>
         </div>

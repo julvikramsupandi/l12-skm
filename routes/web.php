@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ElementController;
 use App\Http\Controllers\Admin\IkmController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\ReportRespondentController;
+use App\Http\Controllers\Admin\ReportServiceController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\UnorController;
@@ -82,6 +83,11 @@ Route::prefix('admin')->group(function () {
 
     Route::match(['get', 'post'], '/report/analytic-respondents', [ReportRespondentController::class, 'analyticRespondent'])->name('admin.report.analytic-respondents');
     Route::match(['get', 'post'], '/report/analytic-respondents-by-unor', [ReportRespondentController::class, 'analyticRespondentByUnor'])->name('admin.report.analytic-respondents-by-unor');
+
+    Route::match(['get', 'post'], '/report/ikm-by-service', [ReportServiceController::class, 'ikmByService'])->name('admin.report.ikm-by-service');
+    Route::match(['get', 'post'], '/report/ikm-by-service-by-unor', [ReportServiceController::class, 'ikmByServiceByUnor'])->name('admin.report.ikm-by-service-by-unor');
+
+
 
     Route::resource('/user', UserController::class)->names('admin.user');
     Route::resource('/role', RoleController::class)->names('admin.role');

@@ -19,7 +19,7 @@ class Answer extends Model
         ?int $skmId = null,
         ?int $serviceId = null,
         ?int $year = null,
-        ?int $month = null
+        string|int|null $month = null
     ) {
         return DB::table('answers')
             ->join('questions', 'questions.id', '=', 'answers.question_id')
@@ -36,8 +36,30 @@ class Answer extends Model
             ->when($year, function ($query) use ($year) {
                 $query->whereYear('answers.created_at', $year);
             })
-            ->when($month, function ($query) use ($month) {
-                $query->whereMonth('answers.created_at', $month);
+            ->when($month, function ($q) use ($month) {
+
+                // Jika bulan numerik (1–12)
+                if (is_numeric($month)) {
+                    $q->whereMonth('answers.created_at', (int) $month);
+                }
+
+                // Triwulan
+                elseif (str_starts_with($month, 'TW')) {
+                    match ($month) {
+                        'TW1' => $q->whereMonth('answers.created_at', [1, 2, 3]),
+                        'TW2' => $q->whereMonth('answers.created_at', [4, 5, 6]),
+                        'TW3' => $q->whereMonth('answers.created_at', [7, 8, 9]),
+                        'TW4' => $q->whereMonth('answers.created_at', [10, 11, 12]),
+                    };
+                }
+
+                // Semester
+                elseif (str_starts_with($month, 'S')) {
+                    match ($month) {
+                        'S1' => $q->whereMonth('answers.created_at', [1, 2, 3, 4, 5, 6]),
+                        'S2' => $q->whereMonth('answers.created_at', [7, 8, 9, 10, 11, 12]),
+                    };
+                }
             })
             ->where('questions.is_active', true)
             ->groupBy(
@@ -63,7 +85,7 @@ class Answer extends Model
         ?int $skmId = null,
         ?int $serviceId = null,
         ?int $year = null,
-        ?int $month = null
+        string|int|null $month = null
     ) {
         return collect(self::questionScores($skmId, $serviceId, $year, $month))
             ->groupBy('element_code')
@@ -83,6 +105,63 @@ class Answer extends Model
                 ];
             })
             ->values();
+    }
+
+    public static function elementScoresByAllServices(
+        ?int $skmId = null,
+        ?int $year = null,
+        string|int|null $month = null
+    ) {
+        return DB::table('answers')
+            ->join('questions', 'questions.id', '=', 'answers.question_id')
+            ->join('elements', 'elements.id', '=', 'questions.element_id')
+            ->join('respondents', 'respondents.id', '=', 'answers.respondent_id')
+            ->join('services', 'services.id', '=', 'respondents.service_id')
+            ->join('skm', 'skm.id', '=', 'services.skm_id')
+            ->when($skmId, fn($q) => $q->where('skm.id', $skmId))
+            ->when($year, fn($q) => $q->whereYear('answers.created_at', $year))
+            ->when($month, function ($q) use ($month) {
+
+                // Jika bulan numerik (1–12)
+                if (is_numeric($month)) {
+                    $q->whereMonth('answers.created_at', (int) $month);
+                }
+
+                // Triwulan
+                elseif (str_starts_with($month, 'TW')) {
+                    match ($month) {
+                        'TW1' => $q->whereMonth('answers.created_at', [1, 2, 3]),
+                        'TW2' => $q->whereMonth('answers.created_at', [4, 5, 6]),
+                        'TW3' => $q->whereMonth('answers.created_at', [7, 8, 9]),
+                        'TW4' => $q->whereMonth('answers.created_at', [10, 11, 12]),
+                    };
+                }
+
+                // Semester
+                elseif (str_starts_with($month, 'S')) {
+                    match ($month) {
+                        'S1' => $q->whereMonth('answers.created_at', [1, 2, 3, 4, 5, 6]),
+                        'S2' => $q->whereMonth('answers.created_at', [7, 8, 9, 10, 11, 12]),
+                    };
+                }
+            })
+            ->where('questions.is_active', true)
+            ->groupBy(
+                'services.id',
+                'services.name',
+                'elements.code',
+                'elements.name'
+            )
+            ->selectRaw('
+            services.id        AS service_id,
+            services.name      AS service_name,
+            elements.code      AS element_code,
+            elements.name      AS element_name,
+            AVG(answers.score) AS element_score
+        ')
+            ->orderBy('services.id')
+            ->orderBy('elements.code')
+            ->get();
     }
 
 

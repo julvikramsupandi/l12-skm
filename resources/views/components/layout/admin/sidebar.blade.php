@@ -159,6 +159,31 @@
                      </li>
                  @endcan
 
+                 @can('report.ikm-by-service')
+                     <li class="pc-item">
+                         <a href="{{ route('admin.report.ikm-by-service') }}" class="pc-link">
+                             <span class="pc-micon">
+                                 <svg class="pc-icon">
+                                     <use xlink:href="#custom-document"></use>
+                                 </svg>
+                             </span>
+                             <span class="pc-mtext">Lap. IKM Per Layanan</span>
+                         </a>
+                     </li>
+                 @endcan
+                 @can('report.ikm-by-service-by-unor')
+                     <li class="pc-item">
+                         <a href="{{ route('admin.report.ikm-by-service-by-unor') }}" class="pc-link">
+                             <span class="pc-micon">
+                                 <svg class="pc-icon">
+                                     <use xlink:href="#custom-document"></use>
+                                 </svg>
+                             </span>
+                             <span class="pc-mtext">Lap. IKM Per Layanan</span>
+                         </a>
+                     </li>
+                 @endcan
+
                  {{-- <li class="pc-item">
                      <a href="{{ route('admin.user.index') }}" class="pc-link">
                          <span class="pc-micon">

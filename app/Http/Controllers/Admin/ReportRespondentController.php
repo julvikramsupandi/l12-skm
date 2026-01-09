@@ -148,7 +148,7 @@ class ReportRespondentController extends Controller
             $monthSelected
         );
 
-        return view('admin.report.analytic_respondents/analytic_respondents', compact(
+        return view('admin.report.analytic_respondent/analytic_respondent', compact(
             'skmSelected',
             'skmSelectedName',
             'serviceSelectedName',

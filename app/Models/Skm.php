@@ -10,35 +10,56 @@ class Skm extends Model
     protected $table = 'skm';
     use HasFactory;
     protected $fillable = ['uuid', 'unor_id'];
+    // Ganti jadi 1 jika nilai SKALA 1 - 4
+    // Ganti jadi 25 jika nilai SKALA 1 - 100
+    protected const RANGE = 25;
 
     public static function format(float $score): float
     {
-        // Ganti jadi 1 jika nilai 1 - 4
-        $range = 25;
-
-        return round($score * $range, 2);
+        return round($score * self::RANGE, 2);
     }
 
 
     public static function skmQuality(int $value): array
     {
-        return match (true) {
-            $value >= 88.31 => [
-                'value' => 'A',
-                'label' => 'Sangat Baik'
-            ],
-            $value >= 76.61 => [
-                'value' => 'B',
-                'label' => 'Baik'
-            ],
-            $value >= 65.00 => [
-                'value' => 'C',
-                'label' => 'Kurang Baik'
-            ],
-            default         => [
-                'value' => 'D',
-                'label' => 'Tidak Baik'
-            ],
+        if (self::RANGE == 1) {
+            return match (true) {
+                $value >= 3.53 => [
+                    'value' => 'A',
+                    'label' => 'Sangat Baik'
+                ],
+                $value >= 3.06  => [
+                    'value' => 'B',
+                    'label' => 'Baik'
+                ],
+                $value >= 2.60  => [
+                    'value' => 'C',
+                    'label' => 'Kurang Baik'
+                ],
+                default         => [
+                    'value' => 'D',
+                    'label' => 'Tidak Baik'
+                ],
+            };
+        } else {
+            return match (true) {
+                $value >= 88.31 => [
+                    'value' => 'A',
+                    'label' => 'Sangat Baik'
+                ],
+                $value >= 76.61 => [
+                    'value' => 'B',
+                    'label' => 'Baik'
+                ],
+                $value >= 65.00 => [
+                    'value' => 'C',
+                    'label' => 'Kurang Baik'
+                ],
+                default         => [
+                    'value' => 'D',
+                    'label' => 'Tidak Baik'
+                ],
+            };
         };
     }
 

@@ -73,6 +73,9 @@ class RolePermissionSeeder extends Seeder
             // report
             'report.analytic-respondent',
             'report.analytic-respondent-by-unor',
+
+            'report.ikm-by-service',
+            'report.ikm-by-service-by-unor',
         ];
 
         foreach ($permissions as $permission) {
@@ -98,12 +101,14 @@ class RolePermissionSeeder extends Seeder
         $superAdmin->syncPermissions(Permission::whereNotIn('name', [
             'skm.show-by-unor',
             'report.analytic-respondent-by-unor',
+            'report.ikm-by-service-by-unor',
         ])->get());
 
         // ADMIN → SEMUA PERMISSION
         $admin->syncPermissions(Permission::whereNotIn('name', [
             'skm.show-by-unor',
             'report.analytic-respondent-by-unor',
+            'report.ikm-by-service-by-unor',
             'user.view',
             'user.create',
             'user.edit',
@@ -123,6 +128,7 @@ class RolePermissionSeeder extends Seeder
             'service.delete',
             'skm.show-by-unor',
             'report.analytic-respondent-by-unor',
+            'report.ikm-by-service-by-unor',
         ]);
 
         // ADMIN → TANPA USER dan ROLE MANAGEMENT

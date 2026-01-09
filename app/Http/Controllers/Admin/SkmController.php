@@ -99,11 +99,9 @@ class SkmController extends Controller
      */
     public function show(Skm $skm, Request $request)
     {
-        echo "test";
+        $skm = Skm::with('unor')->find($skm->id);
 
-        // $skm = Skm::with('unor')->find($skm->id);
-
-        // return $this->renderShow($skm, $request);
+        return $this->renderShow($skm, $request);
     }
 
     public function showByUnor(Request $request)
